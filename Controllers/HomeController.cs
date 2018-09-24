@@ -19,5 +19,12 @@ namespace TrainTracker.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
+        [Route("/map")]
+        public IActionResult Map()
+        {
+            return View();
+        }
     }
 }
