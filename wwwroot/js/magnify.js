@@ -16,10 +16,19 @@ function magnify(imgID, zoom) {
     /*execute a function when someone moves the magnifier glass over the image:*/
     glass.addEventListener("mousemove", moveMagnifier);
     img.addEventListener("mousemove", moveMagnifier);
+    glass.addEventListener("mouseleave", delMagnifier);
+    img.addEventListener("mouseleave", delMagnifier);
     /*and also for touch screens:*/
     glass.addEventListener("touchmove", moveMagnifier);
     img.addEventListener("touchmove", moveMagnifier);
+    function delMagnifier(e) {
+        glass.style.backgroundSize = "1px 1px";
+        glass.style.borderWidth = "0px";
+    }
     function moveMagnifier(e) {
+        glass.style.border = "3px solid #000";
+        glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+        bw = 3;
         var pos, x, y;
         /*prevent any other actions that may occur when moving over the image*/
         e.preventDefault();
