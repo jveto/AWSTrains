@@ -62,4 +62,4 @@ function magnify(imgID, zoom) {
     }
 }
 // magnify(div id, zoom level)
-magnify("myimage", 4);
+magnify("myimage", 3);
