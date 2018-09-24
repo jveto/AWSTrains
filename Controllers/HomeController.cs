@@ -10,14 +10,16 @@ namespace TrainTracker.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet("")]
         public IActionResult Index()
         {
-            return View();
+            return View("page");
         }
 
-        public IActionResult Error()
+        [HttpGet("Dashboard")]
+        public IActionResult Dashboard()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }
