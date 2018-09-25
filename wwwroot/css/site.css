@@ -1,11 +1,11 @@
 * {
     box-sizing: border-box;
 }
-
-/* The div that contains the image you want to magnify */
-.img-magnifier-container {
-    position: relative;
+.container-dashboard {
+    display: flex;
+    margin: 0 40px;
 }
+<<<<<<< HEAD
 
 /* The actual magnifying glass */
 .img-magnifier-glass {
@@ -64,3 +64,40 @@
     border-color: pink;
 }
 
+=======
+.app-custom {
+    background-color: #f5f6fa;
+    padding-bottom: 0;
+}
+.map-container {
+    flex-grow: 1;
+}
+.vMenuCustom {
+    background-color: white;
+    padding: 40px 20px;
+    border-radius: 2px;
+    width: 90%;
+    border: 1px #dee2ed solid;
+    box-shadow: 1px 1px 1px 1px #e5e9f2;
+}
+.vMenuTop {
+    background-color: white;
+    padding: 25px 20px;
+    border-radius: 2px;
+    width: 90%;
+    border: 1px #dee2ed solid;
+    box-shadow: 1px 1px 1px 1px #e5e9f2;
+}
+.map {
+    overflow-y: scroll;
+    margin-top: 15px;
+    resize: vertical;
+}
+.etched-text {
+    text-shadow: 0 2px white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #b8bec5;
+    margin: 0;
+  }
+>>>>>>> df7a06fc938befdfd5f7c70f716be403b34c366a

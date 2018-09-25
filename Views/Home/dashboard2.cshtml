@@ -6,7 +6,7 @@
 					if(response.ctatt.route[0].train.length > 0){
 						for(var i = 0; i<response.ctatt.route[0].train.length; i++){
 						console.log(response.ctatt.route[0].train[i].nextStaNm);
-						$("#trains").append("<h4>" + response.ctatt.route[0].train[i].rn + "</h4>");
+						$("#trains").append("<button>" + response.ctatt.route[0].train[i].rn + "</button>");
 						$("#trains").append("<p>" + response.ctatt.route[0].train[i].destNm + "</p>");
 						$("#trains").append("<p>" + response.ctatt.route[0].train[i].nextStaNm + "</p>");
 						$("#trains").append("<p>" + response.ctatt.route[0].train[i].arrT + "</p>");
