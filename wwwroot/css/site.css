@@ -17,3 +17,50 @@
     width: 200px;
     height: 200px;
 }
+
+.vMenu button{
+    width: 150px;
+    display: inline-block;
+    -webkit-transition: opacity 2s; 
+    transition: opacity 0.5s;
+}
+
+.vMenu button:hover{
+    opacity: 0.5;
+}
+
+.purplebtn{
+    color: purple;
+    border-color: purple;
+}
+
+.yellowbtn{
+    color: rgb(202, 189, 0);
+    border-color:  rgb(202, 189, 0);
+}
+
+.brownbtn{
+    color: brown;
+    border-color: brown;
+}
+
+.redbtn{
+    color: red;
+    border-color: red;
+}
+
+.greenbtn{
+    color: green;
+    border-color: green;
+}
+
+.orangebtn{
+    color: orange;
+    border-color: orange;
+}
+
+.pinkbtn{
+    color: pink;
+    border-color: pink;
+}
+
