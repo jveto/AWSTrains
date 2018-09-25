@@ -2,7 +2,7 @@
 	<nav class="nav__mobile"></nav>
 	<div class="container">
 		<div class="navbar__inner">
-			<a href="#" class="navbar__logo">TrainTracker</a>
+			<a href="/" style="display: flex; align-items: center;" class="navbar__logo"><img height="42px" src="~/images/logo.svg">TrainTracker</a>
 			<nav class="navbar__menu">
 				<ul>
 					<li><a href="/">Home</a></li>
@@ -17,11 +17,15 @@
 	</div>
 </div>
 <!-- Page content -->
-<div class="app">
-	<div class="container">
-		<div class="app__inner">
+<div class="app app-custom">
+	<div class="container-dashboard">
+		<div class="app__inner" style="width: 100%;">
 			<div class="app__menu">
-				<ul class="vMenu">
+				<div class="vMenu vMenuTop">
+					<p class="etched-text">Display: <span style="color: darkslategray;">All Lines</span></p>
+				</div>
+				<ul class="vMenu vMenuCustom">
+					<p class="etched-text" style="color: darkslategray;">Select an option:</p>
 					<li><a href="#" class="vMenu--active">Active page</a></li>
 					<li><a href="#">Second page</a></li>
 					<li><a href="#">Third page</a></li>
@@ -64,7 +68,11 @@
                         </div>
 						<img id="myimage" src="~/images/test.png" style="width:500px; height:auto;">
 					</div>
+        </div>
+				<div class="vMenu vMenuTop" style="width: 100%;">
+					<li><a href="#" class="vMenu--active">Active page</a></li>
 				</div>
+				<img id="myimage" src="~/images/test.png" style="width:100%; height:auto; margin-top: 15px;">
 			</div>
 		</div>
 	</div>
