@@ -22,3 +22,21 @@
         }
     ]}
 }
+
+
+
+<button id="purple">Purple</button>
+					<p id="routeName"></p>
+					<p id="routeStation"></p>
+					@{
+						<script>
+							$(document).ready(function(){
+								$("#purple").click(function(){
+										$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response){
+											$("#routeName").text(response.ctatt.route[0].train[0].nextStaId);
+											$("#routeStation").text(response.ctatt.route[0].train[0].destNm);
+									});
+								});
+							});	
+						</script>
+					}

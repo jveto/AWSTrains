@@ -13,7 +13,7 @@ namespace TrainTracker.Controllers
         [HttpGet("")]
         public IActionResult Index()
         {
-            return View("page");
+            return View();
         }
 
         [HttpGet("Dashboard")]
