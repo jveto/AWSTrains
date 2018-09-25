@@ -11,3 +11,19 @@
 .map-container {
     flex-grow: 1;
 }
+.vMenuCustom {
+    background-color: white;
+    padding: 40px 20px;
+    border-radius: 2px;
+    width: 90%;
+    border: 1px #dee2ed solid;
+    box-shadow: 1px 1px 1px 1px #e5e9f2;
+}
+.vMenuTop {
+    background-color: white;
+    padding: 25px 20px;
+    border-radius: 2px;
+    width: 90%;
+    border: 1px #dee2ed solid;
+    box-shadow: 1px 1px 1px 1px #e5e9f2;
+}
