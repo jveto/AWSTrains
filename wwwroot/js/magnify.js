@@ -26,7 +26,7 @@ function magnify(imgID, zoom) {
         glass.style.borderWidth = "0px";
     }
     function moveMagnifier(e) {
-        glass.style.border = "3px solid #000";
+        glass.style.border = "3px solid rgb(226, 226, 226, .4)";
         glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
         bw = 3;
         var pos, x, y;
