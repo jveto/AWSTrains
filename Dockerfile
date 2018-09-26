@@ -4,7 +4,7 @@ EXPOSE 80
 
 FROM microsoft/aspnetcore-build:2.0 AS build
 WORKDIR /src
-COPY ["TrainTracker/TrainTracker.csproj", "TrainTracker/"]
+COPY ["TrainTracker.csproj", "TrainTracker/"]
 RUN dotnet restore "TrainTracker/TrainTracker.csproj"
 COPY . .
 WORKDIR "/src/TrainTracker"
