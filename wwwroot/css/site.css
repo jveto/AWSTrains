@@ -5,6 +5,66 @@
     display: flex;
     margin: 0 40px;
 }
+<<<<<<< HEAD
+
+/* The actual magnifying glass */
+.img-magnifier-glass {
+    position: absolute;
+    border: 3px solid rgba(226, 226, 226, .4);
+    border-radius: 50%;
+    cursor: none;
+    /*Set the size of the magnifier glass:*/
+    width: 200px;
+    height: 200px;
+}
+
+.vMenu button{
+    width: 150px;
+    display: inline-block;
+    -webkit-transition: opacity 2s; 
+    transition: opacity 0.5s;
+}
+
+.vMenu button:hover{
+    opacity: 0.5;
+}
+
+.purplebtn{
+    color: purple;
+    border-color: purple;
+}
+
+.yellowbtn{
+    color: rgb(202, 189, 0);
+    border-color:  rgb(202, 189, 0);
+}
+
+.brownbtn{
+    color: brown;
+    border-color: brown;
+}
+
+.redbtn{
+    color: red;
+    border-color: red;
+}
+
+.greenbtn{
+    color: green;
+    border-color: green;
+}
+
+.orangebtn{
+    color: orange;
+    border-color: orange;
+}
+
+.pinkbtn{
+    color: pink;
+    border-color: pink;
+}
+
+=======
 .app-custom {
     background-color: #f5f6fa;
     padding-bottom: 0;
@@ -34,6 +94,15 @@
     resize: vertical;
 }
 .etched-text {
+<<<<<<< HEAD
+    text-shadow: 0 2px white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #b8bec5;
+    margin: 0;
+  }
+>>>>>>> df7a06fc938befdfd5f7c70f716be403b34c366a
+=======
   text-shadow: 0 2px white;
   font-size: 1.5rem;
   font-weight: bold;
@@ -41,3 +110,4 @@
   margin: 0;
 }
   
+>>>>>>> 6d5de625d56d30fa8c3b4ebe0d756b90f05bee84
