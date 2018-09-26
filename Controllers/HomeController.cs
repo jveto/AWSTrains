@@ -37,6 +37,12 @@ namespace TrainTracker.Controllers
             return View ();
         }
 
+        [HttpPost ("Tips")]
+        public IActionResult PostTip(Tip submission) {
+            _context.Add(submission);
+            return RedirectToAction("Tips");
+        }
+
         [HttpGet]
         [Route("/map")]
         public IActionResult Map()

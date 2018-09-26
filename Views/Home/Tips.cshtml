@@ -29,11 +29,12 @@
             <div class="auth__auth">
                 <h1 class="auth__title">Leave a tip for us!</h1>
                 <p>Fill in your name and comment to tip.</p>
-                <form method='post' action="/example" autocompelete="new-password" role="presentation" class="form">
+                @model Tip
+                <form method='post' asp-action="PostTip" asp-controller="Home" role="presentation" class="form">
                     <label>Name</label>
-                    <input type="text" name="email" id='email' placeholder="Humpty Dumpty">
+                    <input type="text" asp-for="Name" placeholder="Humpty Dumpty">
                     <label>Comment</label>
-                    <input type="text" name="password" id='password' placeholder="More trains please" autocomplete="off">
+                    <input type="text" asp-for="Comment" placeholder="More trains please" autocomplete="off">
                     <button type='submit' class="button button__accent">Post</button>
                     <h6 class="left-align">Help us improve TrainTracker. 😉</h6>
                 </form>
