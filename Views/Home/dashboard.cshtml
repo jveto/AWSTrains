@@ -487,14 +487,16 @@
 				"$$app_token": "9uAjCkuKb3w9w6gTt6iT0Lv2p"
 			}
 		}).done(function (data) {
+			console.log("******************************************************************************************");
 			console.log(data);
-			for (let i = 0; i < data.length; i++) {
-				let coor = data[i].location.coordinates;
-				coor[1] = parseFloat(sanX(coor[1]) * 700).toFixed(2);
-				coor[0] = parseFloat(sanY(coor[0]) * 500).toFixed(2);
-				coor[2] = color;
-				dataPoints.push(coor);
-			}
+			// for (let i = 0; i < data.length; i++) {
+			// 	let coor = data[i].location.coordinates;
+			// 	coor[1] = parseFloat(sanX(coor[1]) * 700).toFixed(2);
+			// 	coor[0] = parseFloat(sanY(coor[0]) * 500).toFixed(2);
+			// 	coor[2] = color;
+			// 	dataPoints.push(coor);
+			// }
+			
 			if (color == "pink") {
 				makePoints(dataPoints);
 			}
