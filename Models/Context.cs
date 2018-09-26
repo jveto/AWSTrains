@@ -5,6 +5,7 @@ namespace TrainTracker.Models{
         public Context(DbContextOptions<Context> options) : base(options){}
         
         public DbSet<TrainStation> TrainStations{get; set;}
+        public DbSet<TrainStationMin> TrainStationsMin{get; set;}
 
         public DbSet<Tip> Tips { get; set; }
     }
