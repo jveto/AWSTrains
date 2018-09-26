@@ -6,18 +6,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TrainTracker.Models;
 
-namespace TrainTracker.Controllers
-{
-    public class HomeController : Controller
-    {
-        [HttpGet("")]
-        public IActionResult Index()
-        {
-            return View();
+namespace TrainTracker.Controllers {
+    public class HomeController : Controller {
+        [HttpGet ("")]
+        public IActionResult Index () {
+
+            return View ();
         }
 
-        [HttpGet("Dashboard")]
-        public IActionResult Dashboard()
+        [HttpGet ("Dashboard")]
+        public IActionResult Dashboard () {
+            return View ();
+        }
+
+        [HttpGet]
+        [Route("/map")]
+        public IActionResult Map()
         {
             return View();
         }

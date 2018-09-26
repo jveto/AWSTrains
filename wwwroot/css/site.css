@@ -94,6 +94,7 @@
     resize: vertical;
 }
 .etched-text {
+<<<<<<< HEAD
     text-shadow: 0 2px white;
     font-size: 1.5rem;
     font-weight: bold;
@@ -101,3 +102,12 @@
     margin: 0;
   }
 >>>>>>> df7a06fc938befdfd5f7c70f716be403b34c366a
+=======
+  text-shadow: 0 2px white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #b8bec5;
+  margin: 0;
+}
+  
+>>>>>>> 6d5de625d56d30fa8c3b4ebe0d756b90f05bee84
