@@ -46,8 +46,16 @@
 <div class="landing__section">
     <div class="container">
         <div class="expanded__inner">
-            <h2 class="expanded__title">Comments</h2>
-            <div class="expanded__content">
+            <div>
+                <h2 class="expanded__title">Comments</h2>
+                @{
+                    foreach (Tip tip in ViewBag.Tips) {
+                        <div class = "tip">
+                            <h3>@tip.Name</h3>
+                            <p>@tip.Comment</p>
+                        </div>
+                    }
+                }
             </div>
         </div>
     </div>

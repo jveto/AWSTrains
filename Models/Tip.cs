@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace TrainTracker.Models
@@ -14,5 +15,7 @@ namespace TrainTracker.Models
         [Required]
         [MinLength(8)]
         public string Comment { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }

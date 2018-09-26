@@ -34,12 +34,15 @@ namespace TrainTracker.Controllers
 
         [HttpGet ("Tips")]
         public IActionResult Tips () {
+            ViewBag.Tips = _context.Tips.OrderBy(t => t.Date);
             return View ();
         }
 
         [HttpPost ("Tips")]
         public IActionResult PostTip(Tip submission) {
+            submission.Date = DateTime.Now;
             _context.Add(submission);
+            _context.SaveChanges();
             return RedirectToAction("Tips");
         }
 
