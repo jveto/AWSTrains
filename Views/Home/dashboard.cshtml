@@ -1,3 +1,164 @@
+<script>
+	//Each line has its own array of train objects for information of trains currently in service reference by "linecolor"line ex: purpleline;
+
+	$(document).ready(function(){
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){
+			console.log(response1);
+			var purpleline=[];
+			if(response1.ctatt.route[0].train.length > 0){
+				for(var i = 0; i< response1.ctatt.route[0].train.length; i++){
+				purpleline.push({
+					run: response1.ctatt.route[0].train[i].rn,
+					nextStopId: response1.ctatt.route[0].train[i].nextStaId,
+					nextStopName: response1.ctatt.route[0].train[i].nextStaNm,
+					arrivalTime: response1.ctatt.route[0].train[i].arrT,
+					lat: response1.ctatt.route[0].train[i].lat,
+					long: response1.ctatt.route[0].train[i].lon,
+					heading: response1.ctatt.route[0].train[i].heading,
+					routeEnd: response1.ctatt.route[0].train[i].destNm
+					});
+				}
+			}
+			
+			console.log(purpleline);			
+		});
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=y&outputType=JSON", function(response2){
+			var yellowline=[];
+			if(response2.ctatt.route[0].train.length > 0){
+				for(var i = 0; i< response2.ctatt.route[0].train.length; i++){
+				yellowline.push({
+					run: response2.ctatt.route[0].train[i].rn,
+					nextStopId: response2.ctatt.route[0].train[i].nextStaId,
+					nextStopName: response2.ctatt.route[0].train[i].nextStaNm,
+					arrivalTime: response2.ctatt.route[0].train[i].arrT,
+					lat: response2.ctatt.route[0].train[i].lat,
+					long: response2.ctatt.route[0].train[i].lon,
+					heading: response2.ctatt.route[0].train[i].heading,
+					routeEnd: response2.ctatt.route[0].train[i].destNm
+					});
+				}
+			}
+	
+			console.log(yellowline);	
+		});
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=red&outputType=JSON", function(response3){
+			var redline=[];
+			if(response3.ctatt.route[0].train.length > 0){
+				for(var i = 0; i< response3.ctatt.route[0].train.length; i++){
+				redline.push({
+					run: response3.ctatt.route[0].train[i].rn,
+					nextStopId: response3.ctatt.route[0].train[i].nextStaId,
+					nextStopName: response3.ctatt.route[0].train[i].nextStaNm,
+					arrivalTime: response3.ctatt.route[0].train[i].arrT,
+					lat: response3.ctatt.route[0].train[i].lat,
+					long: response3.ctatt.route[0].train[i].lon,
+					heading: response3.ctatt.route[0].train[i].heading,
+					routeEnd: response3.ctatt.route[0].train[i].destNm
+					});
+				}
+			}
+			
+			console.log(redline);		
+		});
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=brn&outputType=JSON", function(response4){
+			var brownline=[];
+			if(response4.ctatt.route[0].train.length > 0){
+				for(var i = 0; i< response4.ctatt.route[0].train.length; i++){
+				brownline.push({
+					run: response4.ctatt.route[0].train[i].rn,
+					nextStopId: response4.ctatt.route[0].train[i].nextStaId,
+					nextStopName: response4.ctatt.route[0].train[i].nextStaNm,
+					arrivalTime: response4.ctatt.route[0].train[i].arrT,
+					lat: response4.ctatt.route[0].train[i].lat,
+					long: response4.ctatt.route[0].train[i].lon,
+					heading: response4.ctatt.route[0].train[i].heading,
+					routeEnd: response4.ctatt.route[0].train[i].destNm
+					});
+				}
+			}
+						
+			console.log(brownline);
+		});
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=blue&outputType=JSON", function(response5){
+			var blueline=[];
+			if(response5.ctatt.route[0].train.length > 0){
+				for(var i = 0; i< response5.ctatt.route[0].train.length; i++){
+				blueline.push({
+					run: response5.ctatt.route[0].train[i].rn,
+					nextStopId: response5.ctatt.route[0].train[i].nextStaId,
+					nextStopName: response5.ctatt.route[0].train[i].nextStaNm,
+					arrivalTime: response5.ctatt.route[0].train[i].arrT,
+					lat: response5.ctatt.route[0].train[i].lat,
+					long: response5.ctatt.route[0].train[i].lon,
+					heading: response5.ctatt.route[0].train[i].heading,
+					routeEnd: response5.ctatt.route[0].train[i].destNm
+					});
+				}
+			}
+					
+			console.log(blueline);
+		});
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=g&outputType=JSON", function(response6){
+			var greenline=[];
+			if(response6.ctatt.route[0].train.length > 0){
+				for(var i = 0; i< response6.ctatt.route[0].train.length; i++){
+				greenline.push({
+					run: response6.ctatt.route[0].train[i].rn,
+					nextStopId: response6.ctatt.route[0].train[i].nextStaId,
+					nextStopName: response6.ctatt.route[0].train[i].nextStaNm,
+					arrivalTime: response6.ctatt.route[0].train[i].arrT,
+					lat: response6.ctatt.route[0].train[i].lat,
+					long: response6.ctatt.route[0].train[i].lon,
+					heading: response6.ctatt.route[0].train[i].heading,
+					routeEnd: response6.ctatt.route[0].train[i].destNm
+					});
+				}
+			}
+					
+			console.log(greenline);
+		});
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=org&outputType=JSON", function(response7){
+			var orangeline=[];
+			if(response7.ctatt.route[0].train.length > 0){
+				for(var i = 0; i< response7.ctatt.route[0].train.length; i++){
+				orangeline.push({
+					run: response7.ctatt.route[0].train[i].rn,
+					nextStopId: response7.ctatt.route[0].train[i].nextStaId,
+					nextStopName: response7.ctatt.route[0].train[i].nextStaNm,
+					arrivalTime: response7.ctatt.route[0].train[i].arrT,
+					lat: response7.ctatt.route[0].train[i].lat,
+					long: response7.ctatt.route[0].train[i].lon,
+					heading: response7.ctatt.route[0].train[i].heading,
+					routeEnd: response7.ctatt.route[0].train[i].destNm
+					});
+				}	
+			}
+				
+			console.log(orangeline);
+		});
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=pink&outputType=JSON", function(response8){
+			var pinkline=[];
+			if(response8.ctatt.route[0].train.length > 0){
+				for(var i = 0; i< response8.ctatt.route[0].train.length; i++){
+				pinkline.push({
+					run: response8.ctatt.route[0].train[i].rn,
+					nextStopId: response8.ctatt.route[0].train[i].nextStaId,
+					nextStopName: response8.ctatt.route[0].train[i].nextStaNm,
+					arrivalTime: response8.ctatt.route[0].train[i].arrT,
+					lat: response8.ctatt.route[0].train[i].lat,
+					long: response8.ctatt.route[0].train[i].lon,
+					heading: response8.ctatt.route[0].train[i].heading,
+					routeEnd: response8.ctatt.route[0].train[i].destNm
+					});
+				}
+			}
+			
+			console.log(pinkline);		
+		});
+	});
+	console.log()
+</script>
+
 <div class="navbar">
 	<nav class="nav__mobile"></nav>
 	<div class="container">
@@ -77,6 +238,22 @@
 			<div class="app__main">
 				<div class="text-container">
 					<h3 class="app__main__title">This is the main area</h3>
+
+
+
+					
+					<div id="map" style="width:400px;height:400px"></div>
+					<script>
+						function myMap() {
+							var mapOptions = {
+								center: new google.maps.LatLng(41.8781, -87.6298),
+								zoom: 10,
+								mapTypeId: google.maps.MapTypeId.HYBRID
+								}
+							var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+						}
+					</script>
+					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlh4cKb_0NhmjwAdrKk9xoGa1Usm7LwZQ&callback=myMap"></script>
 					<p>Write or do whatever you want here!</p>
 					<div class="img-magnifier-container">
 						<!-- See magnify.js -->
