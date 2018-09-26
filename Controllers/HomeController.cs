@@ -45,7 +45,7 @@ namespace TrainTracker.Controllers
         }
 
         [HttpGet("makeDB")]
-        public IActionResult DBMe(string str){
+        public IActionResult DBMe(){
             string URL = "https://data.cityofchicago.org/resource/8mj8-j3c4.json";
             string urlParameters;
 
