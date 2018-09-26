@@ -1,9 +1,9 @@
-<script>
+<!-- <script>
 	//Each line has its own array of train objects for information of trains currently in service reference by "linecolor"line ex: purpleline;
 
 	$(document).ready(function(){
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){
-			console.log(response1);
+			console.log("This is the info for the purple line");
 			var purpleline=[];
 			if(response1.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response1.ctatt.route[0].train.length; i++){
@@ -23,6 +23,7 @@
 			console.log(purpleline);			
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=y&outputType=JSON", function(response2){
+			console.log("This is the info for the yellow line");
 			var yellowline=[];
 			if(response2.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response2.ctatt.route[0].train.length; i++){
@@ -42,6 +43,7 @@
 			console.log(yellowline);	
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=red&outputType=JSON", function(response3){
+			console.log("This is the info for the red line");
 			var redline=[];
 			if(response3.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response3.ctatt.route[0].train.length; i++){
@@ -61,6 +63,7 @@
 			console.log(redline);		
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=brn&outputType=JSON", function(response4){
+			console.log("This is the info for the brown line");
 			var brownline=[];
 			if(response4.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response4.ctatt.route[0].train.length; i++){
@@ -80,6 +83,7 @@
 			console.log(brownline);
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=blue&outputType=JSON", function(response5){
+			console.log("This is the info for the blue line");
 			var blueline=[];
 			if(response5.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response5.ctatt.route[0].train.length; i++){
@@ -99,6 +103,7 @@
 			console.log(blueline);
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=g&outputType=JSON", function(response6){
+			console.log("This is the info for the green line");
 			var greenline=[];
 			if(response6.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response6.ctatt.route[0].train.length; i++){
@@ -118,6 +123,7 @@
 			console.log(greenline);
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=org&outputType=JSON", function(response7){
+			console.log("This is the info for the orange line");
 			var orangeline=[];
 			if(response7.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response7.ctatt.route[0].train.length; i++){
@@ -137,6 +143,7 @@
 			console.log(orangeline);
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=pink&outputType=JSON", function(response8){
+			console.log("This is the info for the pink line");
 			var pinkline=[];
 			if(response8.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response8.ctatt.route[0].train.length; i++){
@@ -157,7 +164,7 @@
 		});
 	});
 	console.log()
-</script>
+</script> -->
 
 <div class="navbar">
 	<nav class="nav__mobile"></nav>
@@ -240,20 +247,6 @@
 					<h3 class="app__main__title">This is the main area</h3>
 
 
-
-					
-					<div id="map" style="width:400px;height:400px"></div>
-					<script>
-						function myMap() {
-							var mapOptions = {
-								center: new google.maps.LatLng(41.8781, -87.6298),
-								zoom: 10,
-								mapTypeId: google.maps.MapTypeId.HYBRID
-								}
-							var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-						}
-					</script>
-					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlh4cKb_0NhmjwAdrKk9xoGa1Usm7LwZQ&callback=myMap"></script>
 					<p>Write or do whatever you want here!</p>
 					<div class="img-magnifier-container">
 						<!-- See magnify.js -->
