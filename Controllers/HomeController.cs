@@ -19,6 +19,11 @@ namespace TrainTracker.Controllers {
             return View ();
         }
 
+        [HttpGet ("Tips")]
+        public IActionResult Tips () {
+            return View ();
+        }
+
         [HttpGet]
         [Route("/map")]
         public IActionResult Map()
