@@ -1,7 +1,8 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	//Each line has its own array of train objects for information of trains currently in service reference by "linecolor"line ex: purpleline;
 
-	$(document).ready(function(){
+	$(document).ready(function($){
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){
 			console.log(response1);
 			var purpleline=[];
@@ -155,7 +156,7 @@
 			
 			console.log(pinkline);		
 		});
-	});
+	})(jQuery);
 	console.log()
 </script>
 
@@ -242,8 +243,8 @@
 
 
 					
-					<div id="map" style="width:400px;height:400px"></div>
-					<script>
+					<!-- <div id="map" style="width:400px;height:400px"></div> -->
+					<!-- <script>
 						function myMap() {
 							var mapOptions = {
 								center: new google.maps.LatLng(41.8781, -87.6298),
@@ -252,8 +253,8 @@
 								}
 							var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 						}
-					</script>
-					<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlh4cKb_0NhmjwAdrKk9xoGa1Usm7LwZQ&callback=myMap"></script>
+					</script> -->
+					<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlh4cKb_0NhmjwAdrKk9xoGa1Usm7LwZQ&callback=myMap"></script> -->
 					<p>Write or do whatever you want here!</p>
                     <div id="map" style="width: 100%; min-height: 400px;"></div>
 					<!-- <div class="img-magnifier-container">
@@ -307,7 +308,6 @@
 		</div>
 	</div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="~/lib/animejs/anime.min.js"></script>
 <script>
     function initMap() {
@@ -460,168 +460,168 @@
 
 
 
-	function sanX(x) {
-		return 1 - ((x - 41.7) / 0.4) + 0.02;
-	}
+	// function sanX(x) {
+	// 	return 1 - ((x - 41.7) / 0.4) + 0.02;
+	// }
 
-	function sanY(y) {
-		return (y - -87.93) / 0.4;
-	}
+	// function sanY(y) {
+	// 	return (y - -87.93) / 0.4;
+	// }
 
-	let dataPoints = [];
+	// let dataPoints = [];
 
-	let colorDict = {
-		"red": "red",
-		"blue": "blue",
-		"g": "green",
-		"brn": "brown",
-		"p": "purple",
-		"pexp": "purple",
-		"y": "yellow",
-		"pnk": "pink",
-		"o": "orange"
-	}
+	// let colorDict = {
+	// 	"red": "red",
+	// 	"blue": "blue",
+	// 	"g": "green",
+	// 	"brn": "brown",
+	// 	"p": "purple",
+	// 	"pexp": "purple",
+	// 	"y": "yellow",
+	// 	"pnk": "pink",
+	// 	"o": "orange"
+	// }
 
-	function getStops(line, color) {
-		$.ajax({
-			url: `https://data.cityofchicago.org/resource/8mj8-j3c4.json?${line}=true`,
-			data: {
-				"$limit": 5000,
-				"$$app_token": "9uAjCkuKb3w9w6gTt6iT0Lv2p"
-			}
-		}).done(function (data) {
-			console.log(data);
-			for (let i = 0; i < data.length; i++) {
-				let coor = data[i].location.coordinates;
-				coor[1] = parseFloat(sanX(coor[1]) * 700).toFixed(2);
-				coor[0] = parseFloat(sanY(coor[0]) * 500).toFixed(2);
-				coor[2] = color;
-				dataPoints.push(coor);
-			}
-			if (color == "pink") {
-				makePoints(dataPoints);
-			}
-			console.log(dataPoints);
-		})
-	};
+	// function getStops(line, color) {
+	// 	$.ajax({
+	// 		url: `https://data.cityofchicago.org/resource/8mj8-j3c4.json?${line}=true`,
+	// 		data: {
+	// 			"$limit": 5000,
+	// 			"$$app_token": "9uAjCkuKb3w9w6gTt6iT0Lv2p"
+	// 		}
+	// 	}).done(function (data) {
+	// 		console.log(data);
+	// 		for (let i = 0; i < data.length; i++) {
+	// 			let coor = data[i].location.coordinates;
+	// 			coor[1] = parseFloat(sanX(coor[1]) * 700).toFixed(2);
+	// 			coor[0] = parseFloat(sanY(coor[0]) * 500).toFixed(2);
+	// 			coor[2] = color;
+	// 			dataPoints.push(coor);
+	// 		}
+	// 		if (color == "pink") {
+	// 			makePoints(dataPoints);
+	// 		}
+	// 		console.log(dataPoints);
+	// 	})
+	// };
 
-	console.log(dataPoints);
+	// console.log(dataPoints);
 
-	function makePoints(arr) {
-		console.log(arr);
-		console.log("here");
-		let res = "<svg width='500' height='700'>";
-		for (let i = 0; i < arr.length; i++) {
-			res += `<circle cx="${Math.floor(arr[i][0])}" cy="${Math.floor(arr[i][1])}" r="5" stroke="black" stroke-width="2" fill="${arr[i][2]}" />`;
-		}
-		res += "</svg>";
-		$(".train-overlay").html(res);
-	}
+	// function makePoints(arr) {
+	// 	console.log(arr);
+	// 	console.log("here");
+	// 	let res = "<svg width='500' height='700'>";
+	// 	for (let i = 0; i < arr.length; i++) {
+	// 		res += `<circle cx="${Math.floor(arr[i][0])}" cy="${Math.floor(arr[i][1])}" r="5" stroke="black" stroke-width="2" fill="${arr[i][2]}" />`;
+	// 	}
+	// 	res += "</svg>";
+	// 	$(".train-overlay").html(res);
+	// }
 
-	function makeMap() {
-		let lines = Object.keys(colorDict);
-		for (let i = 0; i < lines.length; i++) {
-			getStops(lines[i], colorDict[lines[i]]);
-		}
-	}
+	// function makeMap() {
+	// 	let lines = Object.keys(colorDict);
+	// 	for (let i = 0; i < lines.length; i++) {
+	// 		getStops(lines[i], colorDict[lines[i]]);
+	// 	}
+	// }
 
-	makeMap();
+	// makeMap();
 
-	var path = anime.path('.blue-line');
+	// var path = anime.path('.blue-line');
 
-	anime({
-		targets: '.blue',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
+	// anime({
+	// 	targets: '.blue',
+	// 	translateX: path('x'),
+	// 	translateY: path('y'),
+	// 	rotate: path('angle'),
+	// 	duration: 10000,
+	// 	loop: true,
+	// 	easing: 'linear'
+	// });
 
-	var path = anime.path('.yellow-line');
+	// var path = anime.path('.yellow-line');
 
-	anime({
-		targets: '.yellow',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
+	// anime({
+	// 	targets: '.yellow',
+	// 	translateX: path('x'),
+	// 	translateY: path('y'),
+	// 	rotate: path('angle'),
+	// 	duration: 10000,
+	// 	loop: true,
+	// 	easing: 'linear'
+	// });
 
-	var path = anime.path('.purple-line');
+	// var path = anime.path('.purple-line');
 
-	anime({
-		targets: '.purple',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
+	// anime({
+	// 	targets: '.purple',
+	// 	translateX: path('x'),
+	// 	translateY: path('y'),
+	// 	rotate: path('angle'),
+	// 	duration: 10000,
+	// 	loop: true,
+	// 	easing: 'linear'
+	// });
 
-	var path = anime.path('.expurple-line');
+	// var path = anime.path('.expurple-line');
 
-	anime({
-		targets: '.expurple',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
+	// anime({
+	// 	targets: '.expurple',
+	// 	translateX: path('x'),
+	// 	translateY: path('y'),
+	// 	rotate: path('angle'),
+	// 	duration: 10000,
+	// 	loop: true,
+	// 	easing: 'linear'
+	// });
 
-	var path = anime.path('.red-line');
+	// var path = anime.path('.red-line');
 
-	anime({
-		targets: '.red',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
+	// anime({
+	// 	targets: '.red',
+	// 	translateX: path('x'),
+	// 	translateY: path('y'),
+	// 	rotate: path('angle'),
+	// 	duration: 10000,
+	// 	loop: true,
+	// 	easing: 'linear'
+	// });
 
-	var path = anime.path('.green-line');
+	// var path = anime.path('.green-line');
 
-	anime({
-		targets: '.green',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
+	// anime({
+	// 	targets: '.green',
+	// 	translateX: path('x'),
+	// 	translateY: path('y'),
+	// 	rotate: path('angle'),
+	// 	duration: 10000,
+	// 	loop: true,
+	// 	easing: 'linear'
+	// });
 
-	var path = anime.path('.orange-line');
+	// var path = anime.path('.orange-line');
 
-	anime({
-		targets: '.orange',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
+	// anime({
+	// 	targets: '.orange',
+	// 	translateX: path('x'),
+	// 	translateY: path('y'),
+	// 	rotate: path('angle'),
+	// 	duration: 10000,
+	// 	loop: true,
+	// 	easing: 'linear'
+	// });
 
-	var path = anime.path('.pink-line');
+	// var path = anime.path('.pink-line');
 
-	anime({
-		targets: '.pink',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
+	// anime({
+	// 	targets: '.pink',
+	// 	translateX: path('x'),
+	// 	translateY: path('y'),
+	// 	rotate: path('angle'),
+	// 	duration: 10000,
+	// 	loop: true,
+	// 	easing: 'linear'
+	// });
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmMtYz3uY9Di4Fhyj18uWAg3EWE5e5W3s&callback=initMap">
 </script>
