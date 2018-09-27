@@ -144,7 +144,6 @@
 <script src="~/lib/animejs/anime.min.js"></script>
 
 <script>
-<<<<<<< HEAD
 	$(document).ready(function(){
 		$("#trains").click(function(){
 			initMap();
@@ -153,8 +152,6 @@
             animateTrains();
         });
 	});
-=======
->>>>>>> 77d3b10bd29c1c59108b84f469c659df9a0a7b8c
 	var purpleline=[];
 	var yellowline=[];
 	var redline=[];
@@ -163,165 +160,12 @@
 	var brownline=[];
 	var orangeline=[];
 	var pinkline=[];
-<<<<<<< HEAD
     var BrownLineCoordinates;
     var map;
     var stationArrivals = {};
 	
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){	
             console.log(response1);		
-=======
-	var purpArr =[];
-	var yellArr = [];
-	var brownArr= [];
-	var redArr = [];
-	var blueArr= [];
-	var greenArr = [];
-	var orangeArr = [];
-	var pinkArr = [];
-	
-	$(document).ready(function(){
-		$("#trains").click(function(){
-			initMap();
-		});
-
-		$('input[type = radio][name=radiovalue]').change(function () {
-			if (this.value == 'All Lines') {
-				getdata();
-			}
-			else if (this.value == 'Blue Line') {
-				getdata();
-				yellowline=[];
-				redline=[];
-				greenline=[];
-				brownline=[];
-				orangeline=[];
-				pinkline=[];
-				purpArr =[];
-				yellArr = [];
-				brownArr= [];
-				redArr = [];
-				greenArr = [];
-				orangeArr = [];
-				pinkArr = [];
-			}else if(this.value == 'Purple Line'){
-				getdata();
-				yellowline=[];
-				redline=[];
-				blueline=[];
-				greenline=[];
-				brownline=[];
-				orangeline=[];
-				pinkline=[];
-				yellArr = [];
-				brownArr= [];
-				redArr = [];
-				blueArr= [];
-				greenArr = [];
-				orangeArr = [];
-				pinkArr = [];
-			}else if(this.value == 'Brown Line'){
-				getdata();
-				purpleline=[];
-				yellowline=[];
-				redline=[];
-				blueline=[];
-				greenline=[];
-				orangeline=[];
-				pinkline=[];
-				purpArr =[];
-				yellArr = [];
-				redArr = [];
-				blueArr= [];
-				greenArr = [];
-				orangeArr = [];
-				pinkArr = [];
-			}else if(this.value == 'Green Line'){
-				getdata();
-				purpleline=[];
-				yellowline=[];
-				redline=[];
-				blueline=[];
-				brownline=[];
-				orangeline=[];
-				pinkline=[];
-				purpArr =[];
-				yellArr = [];
-				brownArr= [];
-				redArr = [];
-				blueArr= [];
-				orangeArr = [];
-				pinkArr = [];
-			}else if(this.value == 'Orange Line'){
-				getdata();
-				purpleline=[];
-				yellowline=[];
-				redline=[];
-				blueline=[];
-				greenline=[];
-				brownline=[];
-				pinkline=[];
-				purpArr =[];
-				yellArr = [];
-				brownArr= [];
-				redArr = [];
-				blueArr= [];
-				greenArr = [];
-				pinkArr = [];
-			}else if(this.value == 'Pink Line'){
-				getdata();
-				purpleline=[];
-				yellowline=[];
-				redline=[];
-				blueline=[];
-				greenline=[];
-				brownline=[];
-				orangeline=[];
-				purpArr =[];
-				yellArr = [];
-				brownArr= [];
-				redArr = [];
-				blueArr= [];
-				greenArr = [];
-				orangeArr = [];
-			}else if(this.value == 'Red Line'){
-				getdata();
-				purpleline=[];
-				yellowline=[];
-				blueline=[];
-				greenline=[];
-				brownline=[];
-				orangeline=[];
-				pinkline=[];
-				purpArr =[];
-				yellArr = [];
-				brownArr= [];
-				blueArr= [];
-				greenArr = [];
-				orangeArr = [];
-				pinkArr = [];
-			}else if(this.value == 'Yellow Line'){
-				getdata();
-				purpleline=[];
-				redline=[];
-				blueline=[];
-				greenline=[];
-				brownline=[];
-				orangeline=[];
-				pinkline=[];
-				purpArr =[];
-				brownArr= [];
-				redArr = [];
-				blueArr= [];
-				greenArr = [];
-				orangeArr = [];
-				pinkArr = [];
-			}
-			initMap();
-        });
-	function getdata(){
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){			
->>>>>>> 77d3b10bd29c1c59108b84f469c659df9a0a7b8c
 			if(response1.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response1.ctatt.route[0].train.length; i++){
                 if (response1.ctatt.route[0].train[i].isDly === 1) {
@@ -613,7 +457,6 @@
                     // Add marker
                     //addMarker({ coords: event.latLng });
                 });
-<<<<<<< HEAD
 		console.log(purpleline[0].lat + "**************************");
 		var markArr = [];
             for(var i = 0; i<purpleline.length; i++){
@@ -683,16 +526,6 @@
 				}         
 			
 		for (var i = 0; i < markArr.length; i++) {
-=======
-		
-		var markArr = [];
-			 
-			   
-			 
-		//Adding map markers from line arr data
-		if(markArr.length > 0){	       
-			for (var i = 0; i < markArr.length; i++) {
->>>>>>> 77d3b10bd29c1c59108b84f469c659df9a0a7b8c
                 addMarker(markArr[i]);
             }
 		}
