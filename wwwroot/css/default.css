@@ -344,8 +344,6 @@ img, svg {
   overflow: auto;
   float: left; }
 
-.text-container {
-  max-width: 640px; }
   .text-container--center {
     margin-left: auto;
     margin-right: auto; }

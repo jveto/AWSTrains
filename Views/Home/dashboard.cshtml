@@ -1,6 +1,7 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	//Each line has its own array of train objects for information of trains currently in service reference by "linecolor"line ex: purpleline;
-
+	
 	
 </script>
 
@@ -83,14 +84,16 @@
 			</div>
 			<div class="app__main">
 				<div class="vMenu vMenuTop" style="width: 100%;">
-					<marquee class="etched-text" style="color: red; font-size: 1.2rem" scrollamount="3">News and Alerts will be
-						here......</marquee>
+					<marquee class="etched-text" style="color: red; font-size: 1.2rem" scrollamount="3"></marquee>
 				</div>
 				<div class="text-container">
 
 					
 					<p>Write or do whatever you want here!</p>
+					<button id="trains" class="btn">Map Trains</button>
+                    <button id="animate" class="btn">Animate Trains</button>
 					<div id="map" style="width: 100%; min-height: 400px;"></div>
+                    <div class="arrivals"></div>
 					<!-- <div class="img-magnifier-container">
 						See magnify.js -->
 					<!-- Mess with the magnifying glass in site.css - .img-magnifier-glass -->
@@ -138,9 +141,16 @@
 		</div>
 	</div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="~/lib/animejs/anime.min.js"></script>
 <script>
+	$(document).ready(function(){
+		$("#trains").click(function(){
+			initMap();
+		});
+        $("#animate").click(function(){
+            animateTrains();
+        });
+	});
 	var purpleline=[];
 	var yellowline=[];
 	var redline=[];
@@ -149,10 +159,23 @@
 	var brownline=[];
 	var orangeline=[];
 	var pinkline=[];
+    var BrownLineCoordinates;
+    var map;
+    var stationArrivals = {};
 	
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){			
+		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){	
+            console.log(response1);		
 			if(response1.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response1.ctatt.route[0].train.length; i++){
+                if (response1.ctatt.route[0].train[i].isDly === 1) {
+                    $('marquee').append(`Purple Train #${response1.ctatt.route[0].train[i].rn} is experiencing delays near ${response1.ctatt.route[0].train[i].nextStaNm}.\t`);
+                }
+                if (stationArrivals[response1.ctatt.route[0].train[i].nextStaId] == null) {
+                    stationArrivals[response1.ctatt.route[0].train[i].nextStaId] = [{color: "purple", run: response1.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response1.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response1.ctatt.route[0].train[i].destNm}];
+                }
+                else {
+                    stationArrivals[response1.ctatt.route[0].train[i].nextStaId].push({color: "purple", run: response1.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response1.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response1.ctatt.route[0].train[i].destNm});
+                }
 				purpleline.push({
 					run: response1.ctatt.route[0].train[i].rn,
 					nextStopId: response1.ctatt.route[0].train[i].nextStaId,
@@ -164,12 +187,29 @@
 					routeEnd: response1.ctatt.route[0].train[i].destNm
 					});
 				}
+			
+			for(var i = 0; i<purpleline.length; i++){
+				var latitude = parseFloat(purpleline[i].lat);
+				var longitude = parseFloat(purpleline[i].long);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Purple Line: ' + purpleline[i].run + '</h4><p>Next Stop: ' + purpleline[i].nextStopName + '</p><p>Estimated Arrival Time ' + purpleline[i].arrivalTime + '</p><p>Destination: ' + purpleline[i].routeEnd + '</p>' }
+				purpArr.push(point);
+				}
 			}
-
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=y&outputType=JSON", function(response2){
 			if(response2.ctatt.route > 0){
 				for(var i = 0; i< response2.ctatt.route[0].train.length; i++){
+                if (response2.ctatt.route[0].train[i].isDly === 1) {
+                    $('marquee').append(`Yellow Train #${response2.ctatt.route[0].train[i].rn} is experiencing delays near ${response2.ctatt.route[0].train[i].nextStaNm}.\t`);
+                }
+                if (stationArrivals[response2.ctatt.route[0].train[i].nextStaId] == null) {
+                    stationArrivals[response2.ctatt.route[0].train[i].nextStaId] = [{color: "yellow", run: response2.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response2.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response2.ctatt.route[0].train[i].destNm}];
+                }
+                else {
+                    stationArrivals[response2.ctatt.route[0].train[i].nextStaId].push({color: "yellow", run: response2.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response2.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response2.ctatt.route[0].train[i].destNm});
+                }
 				yellowline.push({
 					run: response2.ctatt.route[0].train[i].rn,
 					nextStopId: response2.ctatt.route[0].train[i].nextStaId,
@@ -181,12 +221,30 @@
 					routeEnd: response2.ctatt.route[0].train[i].destNm
 					});
 				}
+				for(var i = 0; i<yellowline.length; i++){
+				var latitude = parseFloat(yellow[i].lat);
+				var longitude = parseFloat(yellowline[i].long);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Yellow Line: ' + yellowline[i].run + '</h4><p>Next Stop: ' + yellowline[i].nextStopName + '</p><p>Estimated Arrival Time ' + yellowline[i].arrivalTime + '</p><p>Destination: ' + yellowline[i].routeEnd + '</p>' }
+				yellArr.push(point);
+				}
 			}
 
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=red&outputType=JSON", function(response3){
+            console.log(response3);
 			if(response3.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response3.ctatt.route[0].train.length; i++){
+                if (response3.ctatt.route[0].train[i].isDly === 1) {
+                    $('marquee').append(`Red Train #${response3.ctatt.route[0].train[i].rn} is experiencing delays near ${response3.ctatt.route[0].train[i].nextStaNm}.\t`);
+                }
+                if (stationArrivals[response3.ctatt.route[0].train[i].nextStaId] == null) {
+                    stationArrivals[response3.ctatt.route[0].train[i].nextStaId] = [{color: "red", run: response3.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response3.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response3.ctatt.route[0].train[i].destNm}];
+                }
+                else {
+                    stationArrivals[response3.ctatt.route[0].train[i].nextStaId].push({color: "red", run: response3.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response3.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response3.ctatt.route[0].train[i].destNm});
+                }
 				redline.push({
 					run: response3.ctatt.route[0].train[i].rn,
 					nextStopId: response3.ctatt.route[0].train[i].nextStaId,
@@ -198,12 +256,29 @@
 					routeEnd: response3.ctatt.route[0].train[i].destNm
 					});
 				}
+				for(var i = 0; i<redline.length; i++){
+				var latitude = parseFloat(redline[i].lat);
+				var longitude = parseFloat(redline[i].long);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Red Line: ' + redline[i].run + '</h4><p>Next Stop: ' + redline[i].nextStopName + '</p><p>Estimated Arrival Time ' + redline[i].arrivalTime + '</p><p>Destination: ' + redline[i].routeEnd + '</p>' }
+				redArr.push(point);
+				}
 			}
 
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=brn&outputType=JSON", function(response4){
 			if(response4.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response4.ctatt.route[0].train.length; i++){
+                if (response4.ctatt.route[0].train[i].isDly === 1) {
+                    $('marquee').append(`Brown Train #${response4.ctatt.route[0].train[i].rn} is experiencing delays near ${response4.ctatt.route[0].train[i].nextStaNm}.\t`);
+                }
+                if (stationArrivals[response4.ctatt.route[0].train[i].nextStaId] == null) {
+                    stationArrivals[response4.ctatt.route[0].train[i].nextStaId] = [{color: "brown", run: response4.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response4.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response4.ctatt.route[0].train[i].destNm}];
+                }
+                else {
+                    stationArrivals[response4.ctatt.route[0].train[i].nextStaId].push({color: "brown", run: response4.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response4.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response4.ctatt.route[0].train[i].destNm});
+                }
 				brownline.push({
 					run: response4.ctatt.route[0].train[i].rn,
 					nextStopId: response4.ctatt.route[0].train[i].nextStaId,
@@ -215,12 +290,31 @@
 					routeEnd: response4.ctatt.route[0].train[i].destNm
 					});
 				}
+				for(var i = 0; i<brownline.length; i++){
+				var latitude = parseFloat(brownline[i].lat);
+				var longitude = parseFloat(brownline[i].long);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Brown Line: ' + brownline[i].run + '</h4><p>Next Stop: ' + brownline[i].nextStopName + '</p><p>Estimated Arrival Time ' + brownline[i].arrivalTime + '</p><p>Destination: ' + brownline[i].routeEnd + '</p>' }
+				brownArr.push(point);
+				} 
 			}
 
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=blue&outputType=JSON", function(response5){
 			if(response5.ctatt.route[0].train.length > 0){
+                console.log(response5);
 				for(var i = 0; i< response5.ctatt.route[0].train.length; i++){
+                if (response5.ctatt.route[0].train[i].isDly === 1) {
+                    console.log("Blue delays")
+                    $('marquee').append(`Blue Train #${response5.ctatt.route[0].train[i].rn} is experiencing delays near ${response5.ctatt.route[0].train[i].nextStaNm}.\t`);
+                }
+                if (stationArrivals[response5.ctatt.route[0].train[i].nextStaId] == null) {
+                    stationArrivals[response5.ctatt.route[0].train[i].nextStaId] = [{color: "blue", run: response5.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response5.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response5.ctatt.route[0].train[i].destNm}];
+                }
+                else {
+                    stationArrivals[response5.ctatt.route[0].train[i].nextStaId].push({color: "blue", run: response5.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response5.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response5.ctatt.route[0].train[i].destNm});
+                }
 				blueline.push({
 					run: response5.ctatt.route[0].train[i].rn,
 					nextStopId: response5.ctatt.route[0].train[i].nextStaId,
@@ -232,12 +326,29 @@
 					routeEnd: response5.ctatt.route[0].train[i].destNm
 					});
 				}
+				for(var i = 0; i<blueline.length; i++){
+				var latitude = parseFloat(blueline[i].lat);
+				var longitude = parseFloat(blueline[i].long);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Blue Line: ' + blueline[i].run + '</h4><p>Next Stop: ' + blueline[i].nextStopName + '</p><p>Estimated Arrival Time ' + blueline[i].arrivalTime + '</p><p>Destination: ' + blueline[i].routeEnd + '</p>' }
+				blueArr.push(point);
+				}
 			}
 
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=g&outputType=JSON", function(response6){
 			if(response6.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response6.ctatt.route[0].train.length; i++){
+                if (response6.ctatt.route[0].train[i].isDly === 1) {
+                    $('marquee').append(`Green Train #${response6.ctatt.route[0].train[i].rn} is experiencing delays near ${response6.ctatt.route[0].train[i].nextStaNm}.\t`);
+                }
+                if (stationArrivals[response6.ctatt.route[0].train[i].nextStaId] == null) {
+                    stationArrivals[response6.ctatt.route[0].train[i].nextStaId] = [{color: "green", run: response6.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response6.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response6.ctatt.route[0].train[i].destNm}];
+                }
+                else {
+                    stationArrivals[response6.ctatt.route[0].train[i].nextStaId].push({color: "green", run: response6.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response6.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response6.ctatt.route[0].train[i].destNm});
+                }
 				greenline.push({
 					run: response6.ctatt.route[0].train[i].rn,
 					nextStopId: response6.ctatt.route[0].train[i].nextStaId,
@@ -249,12 +360,29 @@
 					routeEnd: response6.ctatt.route[0].train[i].destNm
 					});
 				}
+				for(var i = 0; i<greenline.length; i++){
+				var latitude = parseFloat(greenline[i].lat);
+				var longitude = parseFloat(greenline[i].long);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Green Line: ' + greenline[i].run + '</h4><p>Next Stop: ' + greenline[i].nextStopName + '</p><p>Estimated Arrival Time ' + greenline[i].arrivalTime + '</p><p>Destination: ' + greenline[i].routeEnd + '</p>' }
+				greenArr.push(point);
+				} 
 			}
 
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=org&outputType=JSON", function (response7) {
 			if (response7.ctatt.route[0].train.length > 0) {
 				for (var i = 0; i < response7.ctatt.route[0].train.length; i++) {
+                    if (response7.ctatt.route[0].train[i].isDly === 1) {
+                        $('marquee').append(`Orange Train #${response7.ctatt.route[0].train[i].rn} is experiencing delays near ${response7.ctatt.route[0].train[i].nextStaNm}.\t`);
+                    }
+                    if (stationArrivals[response7.ctatt.route[0].train[i].nextStaId] == null) {
+                        stationArrivals[response7.ctatt.route[0].train[i].nextStaId] = [{color: "orange", run: response7.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response7.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response7.ctatt.route[0].train[i].destNm}];
+                    }
+                    else {
+                        stationArrivals[response7.ctatt.route[0].train[i].nextStaId].push({color: "orange", run: response7.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response7.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response7.ctatt.route[0].train[i].destNm});
+                    }
 					orangeline.push({
 						run: response7.ctatt.route[0].train[i].rn,
 						nextStopId: response7.ctatt.route[0].train[i].nextStaId,
@@ -266,6 +394,14 @@
 						routeEnd: response7.ctatt.route[0].train[i].destNm
 					});
 				}
+				 for(var i = 0; i<orangeline.length; i++){
+				var latitude = parseFloat(orangeline[i].lat);
+				var longitude = parseFloat(orangeline[i].long);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Orange Line: ' + orangeline[i].run + '</h4><p>Next Stop: ' + orangeline[i].nextStopName + '</p><p>Estimated Arrival Time ' + orangeline[i].arrivalTime + '</p><p>Destination: ' + orangeline[i].routeEnd + '</p>' }
+				orangeArr.push(point);
+				}  
 			}
 
 		});
@@ -273,6 +409,15 @@
 			
 			if(response8.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response8.ctatt.route[0].train.length; i++){
+                if (response8.ctatt.route[0].train[i].isDly === 1) {
+                    $('marquee').append(`Pink Train #${response8.ctatt.route[0].train[i].rn} is experiencing delays near ${response8.ctatt.route[0].train[i].nextStaNm}.\t`);
+                }
+                if (stationArrivals[response8.ctatt.route[0].train[i].nextStaId] == null) {
+                    stationArrivals[response8.ctatt.route[0].train[i].nextStaId] = [{color: "pink", run: response8.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response8.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response8.ctatt.route[0].train[i].destNm}];
+                }
+                else {
+                    stationArrivals[response8.ctatt.route[0].train[i].nextStaId].push({color: "pink", run: response8.ctatt.route[0].train[i].rn, time: Math.floor((Date.parse(response8.ctatt.route[0].train[i].arrT) - Date.now()) / 60000), end: response8.ctatt.route[0].train[i].destNm});
+                }
 				pinkline.push({
 					run: response8.ctatt.route[0].train[i].rn,
 					nextStopId: response8.ctatt.route[0].train[i].nextStaId,
@@ -284,24 +429,34 @@
 					routeEnd: response8.ctatt.route[0].train[i].destNm
 					});
 				}
-			}
-
-			
+				for(var i = 0; i<pinkline.length; i++){
+				var latitude = parseFloat(pinkline[i].lat);
+				var longitude = parseFloat(pinkline[i].long);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Pink Line: ' + pinkline[i].run + '</h4><p>Next Stop: ' + pinkline[i].nextStopName + '</p><p>Estimated Arrival Time ' + pinkline[i].arrivalTime + '</p><p>Destination: ' + pinkline[i].routeEnd + '</p>' }
+				pinkArr.push(point);
+				}  
+			}	
 		});
-
+	}
+	getdata();
+		
+});
 	function initMap() {
 	
 		var codingDojo = { lat: 41.897184, lng: -87.635235 }
-		var map = new google.maps.Map(
+		map = new google.maps.Map(
 			document.getElementById('map'), { zoom: 12, center: codingDojo }
-			);
-		var marker = new google.maps.Marker({ position: codingDojo, map: map });
+		);
+        var transitLayer = new google.maps.TransitLayer();
+        transitLayer.setMap(map);
+		// var marker = new google.maps.Marker({ position: codingDojo, map: map });
 		google.maps.event.addListener(map, 'click', function (event) {
                     // Add marker
                     //addMarker({ coords: event.latLng });
                 });
 		console.log(purpleline[0].lat + "**************************");
-		
 		var markArr = [];
             for(var i = 0; i<purpleline.length; i++){
 				var latitude = parseFloat(purpleline[i].lat);
@@ -331,8 +486,9 @@
 				var latitude = parseFloat(brownline[i].lat);
 				var longitude = parseFloat(brownline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
-                			 iconImage: 'https://img00.deviantart.net/f079/i/2005/119/7/0/dance_little_man__dance__by_xduckeh.gif',
-                			 content: 'worked'}
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: '<h4>Brown Line: ' + brownline[i].run + '</h4><p>Next Stop: ' + brownline[i].nextStopName + '</p><p>Estimated Arrival Time ' + brownline[i].arrivalTime + '</p><p>Destination: ' + brownline[i].routeEnd + '</p>' }
+                brownline[i].marker = point;
 				markArr.push(point);
 				}  
 			 for(var i = 0; i<blueline.length; i++){
@@ -370,8 +526,48 @@
 			
 		for (var i = 0; i < markArr.length; i++) {
                 addMarker(markArr[i]);
-				console.log(markArr[i]);
             }
+		}
+		if(purpArr.length > 0){
+			for (var j = 0; j < purpArr.length; j++) {
+				addMarker(purpArr[j]);
+			}
+		}
+		if(yellArr.length > 0){
+			for (var j = 0; j < yellArr.length; j++) {
+				addMarker(yellArr[j]);
+			}
+		}
+		if(redArr.length > 0){
+			for (var j = 0; j < redArr.length; j++) {
+				addMarker(redArr[j]);
+			}
+		}
+		if(brownArr.length > 0){
+			for (var j = 0; j < brownArr.length; j++) {
+				addMarker(brownArr[j]);
+			}
+		}
+		if(blueArr.length > 0){
+			for (var j = 0; j < blueArr.length; j++) {
+				addMarker(blueArr[j]);
+			}
+		}
+		if(greenArr.length > 0){
+			for (var j = 0; j < greenArr.length; j++) {
+				addMarker(greenArr[j]);
+			}
+		}
+		if(orangeArr.length > 0){
+			for (var j = 0; j < orangeArr.length; j++) {
+				addMarker(orangeArr[j]);
+			}
+		}
+		if(pinkArr.length > 0){
+			for (var j = 0; j < pinkArr.length; j++) {
+				addMarker(pinkArr[j]);
+			}	
+		}
             
             function addMarker(props) {
                 var tmarker = new google.maps.Marker({
@@ -436,7 +632,7 @@
 			{ lat: 41.888874, lng: -87.633970, name: "Merchandise Mart" },
 		];
 
-		var BrownLineCoordinates = [
+		BrownLineCoordinates = [
 			{ lat: 41.967640, lng: -87.712863, name: "Kimball" },
 			{ lat: 41.966077, lng: -87.708699, name: "Kedzie" },
 			{ lat: 41.966201, lng: -87.701592, name: "Francisco" },
@@ -706,6 +902,7 @@
 		PinkLine.setMap(map);
 		BlueLine.setMap(map);
 		GreenLine.setMap(map);
+        // just commenting out for now, test later ? makeMap();
 	}
 
 
@@ -740,20 +937,24 @@
 				"$$app_token": "9uAjCkuKb3w9w6gTt6iT0Lv2p"
 			}
 		}).done(function (data) {
-			console.log("******************************************************************************************");
-			console.log(data);
-			 for (let i = 0; i < data.length; i++) {
-			 	let coor = data[i].location.coordinates;
-			 	coor[1] = parseFloat(sanX(coor[1]) * 700).toFixed(2);
-			 	coor[0] = parseFloat(sanY(coor[0]) * 500).toFixed(2);
-			 	coor[2] = color;
-			 	dataPoints.push(coor);
-			 }
-			
-			if (color == "pink") {
-				makePoints(dataPoints);
-			}
-			//console.log(dataPoints);
+            console.log(data);
+            for (let i = 0; i < data.length; i++) {
+                var marker = new google.maps.Circle({
+                    strokeColor: 'black',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 1,
+                    fillColor: 'white',
+                    fillOpacity: 0.8,
+                    radius: 100,
+                    id: parseInt(data[i].map_id),
+                    center: {lat: data[i].location.coordinates[1], lng: data[i].location.coordinates[0]},
+                    map: map,
+                    title: data[i].station_name  
+                })
+                google.maps.event.addListener(marker, "click", function(event) {
+                    getArrivalTimes(marker.id);
+                })
+            }
 		})
 	};
 
@@ -777,106 +978,34 @@
 		}
 	}
 
-	makeMap();
-
-	var path = anime.path('.blue-line');
-
-	anime({
-		targets: '.blue',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
-
-	var path = anime.path('.yellow-line');
-
-	anime({
-		targets: '.yellow',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
-
-	var path = anime.path('.purple-line');
-
-	anime({
-		targets: '.purple',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
-
-	var path = anime.path('.expurple-line');
-
-	anime({
-		targets: '.expurple',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
-
-	var path = anime.path('.red-line');
-
-	anime({
-		targets: '.red',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
-
-	var path = anime.path('.green-line');
-
-	anime({
-		targets: '.green',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
-
-	var path = anime.path('.orange-line');
-
-	anime({
-		targets: '.orange',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
-
-	var path = anime.path('.pink-line');
-
-	anime({
-		targets: '.pink',
-		translateX: path('x'),
-		translateY: path('y'),
-		rotate: path('angle'),
-		duration: 10000,
-		loop: true,
-		easing: 'linear'
-	});
-	
-
-	google.maps.event.addDomListener(window, 'load', initMap);
+    function getArrivalTimes(id) {
+        console.log(id);
+        console.log(stationArrivals[id]);
+        let str = "";
+        let colordict = {
+            "pink": "pink",
+            "red": "#eb2d2d",
+            "blue": "lightblue",
+            "green": "#88ff4d",
+            "orange": "#ff751a",
+            "brown": "#994d00",
+            "yellow": "yellow",
+            "purple": "mediumpurple"
+        };
+        if (stationArrivals[id] !== undefined) {
+            for (let i = 0; i < stationArrivals[id].length; i++)
+            {
+                if (stationArrivals[id][i].time < 1) {
+                    stationArrivals[id][i].time = "Due";
+                }
+                else {
+                    stationArrivals[id][i].time = `${stationArrivals[id][i].time} min.`
+                }
+                str += `<div class="arrival" style="background-color: ${colordict[stationArrivals[id][i].color]};"><p>Run #${stationArrivals[id][i].run}</p><h2>${stationArrivals[id][i].end}<span class="time">${stationArrivals[id][i].time}</span></div>`
+            }
+        }
+        $("div.arrivals").html(str);
+    }
 
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmMtYz3uY9Di4Fhyj18uWAg3EWE5e5W3s&callback=initMap">
