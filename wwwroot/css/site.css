@@ -134,3 +134,18 @@ table th{
     opacity: 1;
     color: darkgray;
 }
+
+.trainbtn{
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgb(66, 79, 231);
+    border: none;
+    color: white;
+    transition: all ease-in .1s;
+}
+
+.trainbtn:hover{
+    background-color: rgba(157, 155, 204, 0.842);
+    border: none;
+    color: white;
+}

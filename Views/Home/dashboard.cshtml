@@ -58,7 +58,7 @@
 								<label for="YellowLine">Yellow Line</label>
 							</div>
 						</li>
-						<button id="trains" class="btn">Map Trains</button>
+						<button id="trains" class="trainbtn">Map Trains</button>
 					</ul>
 					
 				</div>
@@ -92,7 +92,7 @@
 
 					
 					<p>Write or do whatever you want here!</p>
-					<div id="map" style="width: 170%; min-height: 700px;"></div>
+					<div id="map" style="width: 100%; min-height: 700px;"></div>
 					<!-- <div class="img-magnifier-container">
 						See magnify.js -->
 					<!-- Mess with the magnifying glass in site.css - .img-magnifier-glass -->
@@ -321,7 +321,7 @@
 				var longitude = parseFloat(purpleline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + purpleline[i].run + '"<h4> Pink Line: ' + purpleline[i].run + '</h4><p>Next Stop: ' + purpleline[i].nextStopName + '</p><p>Estimated Arrival Time ' + purpleline[i].arrivalTime + '</p><p>Destination: ' + purpleline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + purpleline[i].run + '"<h4> Pink Line: ' + purpleline[i].run + '</h4><p>Next Stop: ' + purpleline[i].nextStopName + '</p><p>Estimated Arrival Time ' + purpleline[i].arrivalTime + '</p><p>Destination: ' + purpleline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
 				purpArr.push(point);
 				}
 			}
@@ -345,7 +345,7 @@
 				var longitude = parseFloat(yellowline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + yellowline[i].run + '"<h4> Yellow Line: ' + yellowline[i].run + '</h4><p>Next Stop: ' + yellowline[i].nextStopName + '</p><p>Estimated Arrival Time ' + yellowline[i].arrivalTime + '</p><p>Destination: ' + yellowline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + yellowline[i].run + '"<h4> Yellow Line: ' + yellowline[i].run + '</h4><p>Next Stop: ' + yellowline[i].nextStopName + '</p><p>Estimated Arrival Time ' + yellowline[i].arrivalTime + '</p><p>Destination: ' + yellowline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
 				yellArr.push(point);
 				}
 			}
@@ -370,7 +370,7 @@
 				var longitude = parseFloat(redline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + redline[i].run + '"<h4>Red Line: ' + redline[i].run + '</h4><p>Next Stop: ' + redline[i].nextStopName + '</p><p>Estimated Arrival Time ' + redline[i].arrivalTime + '</p><p>Destination: ' + redline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + redline[i].run + '"<h4>Red Line: ' + redline[i].run + '</h4><p>Next Stop: ' + redline[i].nextStopName + '</p><p>Estimated Arrival Time ' + redline[i].arrivalTime + '</p><p>Destination: ' + redline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
 				redArr.push(point);
 				}
 			}
@@ -395,7 +395,7 @@
 				var longitude = parseFloat(brownline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + brownline[i].run + '"<h4> Brown Line: ' + brownline[i].run + '</h4><p>Next Stop: ' + brownline[i].nextStopName + '</p><p>Estimated Arrival Time ' + brownline[i].arrivalTime + '</p><p>Destination: ' + brownline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + brownline[i].run + '"<h4> Brown Line: ' + brownline[i].run + '</h4><p>Next Stop: ' + brownline[i].nextStopName + '</p><p>Estimated Arrival Time ' + brownline[i].arrivalTime + '</p><p>Destination: ' + brownline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
 				brownArr.push(point);
 				} 
 			}
@@ -420,7 +420,7 @@
 				var longitude = parseFloat(blueline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + blueline[i].run + '"<h4>Blue Line: ' + blueline[i].run + '</h4><p>Next Stop: ' + blueline[i].nextStopName + '</p><p>Estimated Arrival Time ' + blueline[i].arrivalTime + '</p><p>Destination: ' + blueline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + blueline[i].run + '"<h4>Blue Line: ' + blueline[i].run + '</h4><p>Next Stop: ' + blueline[i].nextStopName + '</p><p>Estimated Arrival Time ' + blueline[i].arrivalTime + '</p><p>Destination: ' + blueline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
 				blueArr.push(point);
 				}
 			}
@@ -445,7 +445,7 @@
 				var longitude = parseFloat(greenline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + greenline[i].run + '"<h4> Green Line: ' + greenline[i].run + '</h4><p>Next Stop: ' + greenline[i].nextStopName + '</p><p>Estimated Arrival Time ' + greenline[i].arrivalTime + '</p><p>Destination: ' + greenline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + greenline[i].run + '"<h4> Green Line: ' + greenline[i].run + '</h4><p>Next Stop: ' + greenline[i].nextStopName + '</p><p>Estimated Arrival Time ' + greenline[i].arrivalTime + '</p><p>Destination: ' + greenline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
 				greenArr.push(point);
 				} 
 			}
@@ -470,7 +470,7 @@
 				var longitude = parseFloat(orangeline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + orangeline[i].run + '"<h4> Pink Line: ' + orangeline[i].run + '</h4><p>Next Stop: ' + orangeline[i].nextStopName + '</p><p>Estimated Arrival Time ' + orangeline[i].arrivalTime + '</p><p>Destination: ' + orangeline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + orangeline[i].run + '"<h4> Pink Line: ' + orangeline[i].run + '</h4><p>Next Stop: ' + orangeline[i].nextStopName + '</p><p>Estimated Arrival Time ' + orangeline[i].arrivalTime + '</p><p>Destination: ' + orangeline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
 				orangeArr.push(point);
 				}  
 			}
@@ -496,7 +496,7 @@
 				var longitude = parseFloat(pinkline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + pinkline[i].run + '"<h4> Pink Line: ' + pinkline[i].run + '</h4><p>Next Stop: ' + pinkline[i].nextStopName + '</p><p>Estimated Arrival Time ' + pinkline[i].arrivalTime + '</p><p>Destination: ' + pinkline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + pinkline[i].run + '"<h4> Pink Line: ' + pinkline[i].run + '</h4><p>Next Stop: ' + pinkline[i].nextStopName + '</p><p>Estimated Arrival Time ' + pinkline[i].arrivalTime + '</p><p>Destination: ' + pinkline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
 				pinkArr.push(point);
 				}  
 			}	
@@ -524,54 +524,57 @@
 		//Adding map markers from line arr data
 		if(markArr.length > 0){	       
 			for (var i = 0; i < markArr.length; i++) {
-                addMarker(markArr[i]);
+                addMarker(markArr[i], i * 200);
             }
 		}
 		if(purpArr.length > 0){
 			for (var j = 0; j < purpArr.length; j++) {
-				addMarker(purpArr[j]);
+				addMarker(purpArr[j, j * 200]);
 			}
 		}
 		if(yellArr.length > 0){
 			for (var j = 0; j < yellArr.length; j++) {
-				addMarker(yellArr[j]);
+				addMarker(yellArr[j], j * 200);
 			}
 		}
 		if(redArr.length > 0){
 			for (var j = 0; j < redArr.length; j++) {
-				addMarker(redArr[j]);
+				addMarker(redArr[j], j * 200);
 			}
 		}
 		if(brownArr.length > 0){
 			for (var j = 0; j < brownArr.length; j++) {
-				addMarker(brownArr[j]);
+				addMarker(brownArr[j], j * 200);
 			}
 		}
 		if(blueArr.length > 0){
 			for (var j = 0; j < blueArr.length; j++) {
-				addMarker(blueArr[j]);
+				addMarker(blueArr[j], j * 200);
 			}
 		}
 		if(greenArr.length > 0){
 			for (var j = 0; j < greenArr.length; j++) {
-				addMarker(greenArr[j]);
+				addMarker(greenArr[j], j * 200);
 			}
 		}
 		if(orangeArr.length > 0){
 			for (var j = 0; j < orangeArr.length; j++) {
-				addMarker(orangeArr[j]);
+				addMarker(orangeArr[j], i * 200);
 			}
 		}
 		if(pinkArr.length > 0){
 			for (var j = 0; j < pinkArr.length; j++) {
-				addMarker(pinkArr[j]);
+				addMarker(pinkArr[j], i * 200);
 			}	
 		}
+		
             
-            function addMarker(props) {
+            function addMarker(props, timeout) {
+				window.setTimeout(function() {
                 var tmarker = new google.maps.Marker({
                     position: props.coords,
                     map: map,
+					animation: google.maps.Animation.DROP
                 });
 
                 //   // Check for customicon
@@ -590,6 +593,7 @@
                         infoWindow.open(map, tmarker);
                     });
                 }
+				}, timeout);
 			}
 		var YellowLineCoordinates = [
 			{ lat: 42.019068, lng: -87.672825, name: "Howard" },
