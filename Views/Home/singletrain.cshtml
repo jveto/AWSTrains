@@ -1,0 +1,99 @@
+
+<div class="navbar">
+	<nav class="nav__mobile"></nav>
+	<div class="container">
+		<div class="navbar__inner">
+			<a href="/" style="display: flex; align-items: center;" class="navbar__logo"><img height="42px" src="~/images/logo.svg">TrainTracker</a>
+			<nav class="navbar__menu">
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="/Dashboard">Dashboard</a></li>
+					<li><a href="/Tips">Tips</a></li>
+				</ul>
+			</nav>
+			<div class="navbar__menu-mob"><a href="" id='toggle'><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+						<path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+						 class=""></path>
+					</svg></a></div>
+		</div>
+	</div>
+</div>
+
+<!-- Page content -->
+<div class="app app-custom">
+	<div class="container-dashboard">
+		<div class="app__inner" style="width: 100%;">
+			<div class="app__menu">
+				<div id='LineSelect'>
+					<div class="vMenu vMenuTop">
+						<p class="etched-text">Display: <span style="color: darkslategray;">{{ line }}</span></p>
+					</div>
+					<ul class="vMenu vMenuCustom">
+						<p class="etched-text" style="color: darkslategray;">Select an option:</p>
+						<li style="display: flex;">
+							<div>
+								
+							</div>
+						</li>
+					</ul>
+					
+				</div>
+				<table class='table table-striped' style="background-color: white; padding: 20px; box-shadow: 1px 1px #ccc;">
+                        <h4 style="darkslategray">Route information for Train #@ViewBag.id</h4>
+                        <thead>
+                            <th style="width: 300px; text-align: left;">Station</th>
+                            <th style="width: 300px; text-align: left;">Arrival</th>
+                            <th style="width: 300px; text-align: left;">Destination</th>
+                        </thead>
+                        <tbody id="trains">
+                        
+                        </tbody>
+                    </table>
+				<ul class="vMenu vMenuCustom">
+					<p class="etched-text" style="color: darkslategray;">Magnify:</p>
+					<li>
+						<input checked type="checkbox" id="Magnify" />
+						<label for="Magnify">Enable/Disable</label>
+					</li>
+				</ul>
+			</div>
+			<div class="app__main">
+				<div class="vMenu vMenuTop" style="width: 100%;">
+					<marquee class="etched-text" style="color: red; font-size: 1.2rem" scrollamount="3">News and Alerts will be
+						here......</marquee>
+				</div>
+				<div class="text-container">
+
+                    
+                
+                
+				<div id="map" style="width: 170%; min-height: 700px;"></div>
+
+<script>
+    var singletrain = [];
+	$(document).ready(function(){
+		$.get("http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?key=d37555ccc09141848543ab21e287b560&runnumber=@ViewBag.id&outputType=JSON", function(response){
+            if(response != null){
+                for(var i = 0; i<response.ctatt.eta.length; i++){
+                    var time = response.ctatt.eta[i].arrT.slice(11,19);
+                    singletrain.push({
+                        line: response.ctatt.eta[i].rt,
+                        nextStationId: response.ctatt.eta[i].staId,
+                        nextStopId: response.ctatt.eta[i].stpId,
+                        nextStationName: response.ctatt.eta[i].staNm,
+                        arrTime: time,
+                        destinationName: response.ctatt.eta[i].destNm,
+                        destinationId: response.ctatt.eta[i].destSt
+                    })
+				}
+                console.log(singletrain.length);
+                for(var j=0; j<singletrain.length; j++){
+                    $("#trains").append("<tr><td>" + singletrain[j].nextStationName + "</td><td>" + singletrain[j].arrTime + "</td><td>" + singletrain[j].destinationName + "</td>");
+                }
+			}  	
+		});
+    });
+</script>
+
+
+

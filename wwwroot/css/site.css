@@ -105,6 +105,11 @@
     margin: 20px 0;
 }
 
+table th{
+    width: 200px;
+    padding: 20px;
+}
+
 .text-container {
     width: 100%;
 }
