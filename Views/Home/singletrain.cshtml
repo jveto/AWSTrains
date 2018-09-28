@@ -68,12 +68,14 @@
     var singletrain = [];
     var markArr = [];
 	var line = "";
+	var orangeArr = [];
 	$(document).ready(function(){
         $("#atrain").click(function(){
 			initMap();
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?key=d37555ccc09141848543ab21e287b560&runnumber=@ViewBag.id&outputType=JSON", function(response){
             line = response.ctatt.eta[0].rt
+			
 			if(response != null){
                 for(var i = 0; i<response.ctatt.eta.length; i++){
                     var time = response.ctatt.eta[i].arrT.slice(11,19);
@@ -91,6 +93,12 @@
                 for(var j=0; j<singletrain.length; j++){
                     $("#trains").append("<tr><td>" + singletrain[j].nextStationName + "</td><td>" + singletrain[j].arrTime + "</td><td>" + singletrain[j].destinationName + "</td>");
                 }
+				var latitude = parseFloat(response.ctatt.position.lat);
+				var longitude = parseFloat(response.ctatt.position.lon);
+				var point = {coords: { lat: latitude, lng: longitude },
+                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                			 content: "You are here"}
+				orangeArr.push(point);
 			}  	
 		});
         
@@ -112,7 +120,8 @@
 			 
 			   
 			 
-		
+        
+
 		
             
             function addMarker(props, timeout) {
@@ -476,7 +485,8 @@
 		if(line == "Yellow Line"){
 			for(var i = 0; i < YlwMrk.length; i++){
 				addMarker2(YlwMrk[i]);
-			}
+				
+			}addMarker(orangeArr[0]);
 		}
 		
 
@@ -496,7 +506,8 @@
 		
 		for(var i = 0; i < PrpMrk.length; i++){
 			addMarker2(PrpMrk[i]);
-		}
+			
+		}addMarker(orangeArr[0]);
 		}
 
 		for(var i = 0; i < BrownLineCoordinates.length; i++){
@@ -515,7 +526,8 @@
 		
 		for(var i = 0; i < BrnMrk.length; i++){
 			addMarker2(BrnMrk[i]);
-		}
+			
+		}addMarker(orangeArr[0]);
 		}
 
 			for(var i = 0; i < RedLineCoordinates.length; i++){
@@ -532,7 +544,8 @@
 		if(line =="Red Line"){
 		for(var i = 0; i < RedMrk.length; i++){
 			addMarker2(RedMrk[i]);
-		}
+			
+		}addMarker(orangeArr[0]);
 		}
 
 		for(var i = 0; i < OrangeLineCoordinates.length; i++){
@@ -551,7 +564,8 @@
 		
 		for(var i = 0; i < OrgMrk.length; i++){
 			addMarker2(OrgMrk[i]);
-		}
+			
+		}addMarker(orangeArr[0]);
 		}
 
 		for(var i = 0; i < PinkLineCoordinates.length; i++){
@@ -570,7 +584,8 @@
 		
 		for(var i = 0; i < PnkMrk.length; i++){
 			addMarker2(PnkMrk[i]);
-		}
+			
+		}addMarker(orangeArr[0]);
 		}
 
 		for(var i = 0; i < BlueLineCoordinates.length; i++){
@@ -589,7 +604,8 @@
 		
 		for(var i = 0; i < BluMrk.length; i++){
 			addMarker2(BluMrk[i]);
-		}
+			
+		}addMarker(orangeArr[0]);
 		}
 
 		for(var i = 0; i < GreenLineCoordinates.length; i++){
@@ -608,7 +624,8 @@
 		
 		for(var i = 0; i < GrnMrk.length; i++){
 			addMarker2(GrnMrk[i]);
-		}
+			
+		}addMarker(orangeArr[0]);
 		}
 		
 		if(line == "Purple Line"){		PurpleLine.setMap(map);
@@ -627,6 +644,37 @@
 		if(line == "Green Line"){		GreenLine.setMap(map);
 }
 
+
+		
+		addMarker(orangeArr[0], i * 200);
+		
+            
+            function addMarker(props, timeout) {
+				window.setTimeout(function() {
+                var tmarker = new google.maps.Marker({
+                    position: props.coords,
+                    map: map,
+					animation: google.maps.Animation.DROP
+                });
+
+                //   // Check for customicon
+                if (props.iconImage) {
+					
+                    tmarker.setIcon(props.iconImage);
+                }
+
+                //   // Check content
+                if (props.content) {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                    });
+
+                    tmarker.addListener('click', function () {
+                        infoWindow.open(map, tmarker);
+                    });
+                }
+				}, timeout);
+			}
 	}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmMtYz3uY9Di4Fhyj18uWAg3EWE5e5W3s">
