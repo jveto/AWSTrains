@@ -53,6 +53,11 @@ namespace TrainTracker.Controllers
             return View();
         }
 
+        [HttpGet("dashboard3")]
+        public IActionResult dashboard3(){
+            return View();
+        }
+
         [HttpPost]
         [Route("/singletrain")]
         public IActionResult SingleTrain(int id)
