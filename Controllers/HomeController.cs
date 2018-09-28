@@ -53,6 +53,14 @@ namespace TrainTracker.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Route("/singletrain")]
+        public IActionResult SingleTrain(int id)
+        {
+            ViewBag.id = id;
+            return View("singletrain");
+        }
+
         [HttpGet("makeDB")]
         public IActionResult DBMe(){
             string URL = "https://data.cityofchicago.org/resource/8mj8-j3c4.json";

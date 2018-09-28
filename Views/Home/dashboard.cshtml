@@ -58,7 +58,9 @@
 								<label for="YellowLine">Yellow Line</label>
 							</div>
 						</li>
+						<button id="trains" class="btn">Map Trains</button>
 					</ul>
+					
 				</div>
 				<ul class="vMenu vMenuCustom">
 					<p class="etched-text" style="color: darkslategray;">Set Alerts:</p>
@@ -90,8 +92,7 @@
 
 					
 					<p>Write or do whatever you want here!</p>
-					<button id="trains" class="btn">Map Trains</button>
-					<div id="map" style="width: 100%; min-height: 400px;"></div>
+					<div id="map" style="width: 170%; min-height: 700px;"></div>
 					<!-- <div class="img-magnifier-container">
 						See magnify.js -->
 					<!-- Mess with the magnifying glass in site.css - .img-magnifier-glass -->
@@ -303,11 +304,12 @@
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){			
 			if(response1.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response1.ctatt.route[0].train.length; i++){
+				var time1 = response1.ctatt.route[i].train[i].arrT;
 				purpleline.push({
 					run: response1.ctatt.route[0].train[i].rn,
 					nextStopId: response1.ctatt.route[0].train[i].nextStaId,
 					nextStopName: response1.ctatt.route[0].train[i].nextStaNm,
-					arrivalTime: response1.ctatt.route[0].train[i].arrT,
+					arrivalTime: time1,
 					lat: response1.ctatt.route[0].train[i].lat,
 					long: response1.ctatt.route[0].train[i].lon,
 					heading: response1.ctatt.route[0].train[i].heading,
@@ -320,7 +322,7 @@
 				var longitude = parseFloat(purpleline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<h4>Purple Line: ' + purpleline[i].run + '</h4><p>Next Stop: ' + purpleline[i].nextStopName + '</p><p>Estimated Arrival Time ' + purpleline[i].arrivalTime + '</p><p>Destination: ' + purpleline[i].routeEnd + '</p>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + purpleline[i].run + '"<h4> Pink Line: ' + purpleline[i].run + '</h4><p>Next Stop: ' + purpleline[i].nextStopName + '</p><p>Estimated Arrival Time ' + purpleline[i].arrivalTime + '</p><p>Destination: ' + purpleline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
 				purpArr.push(point);
 				}
 			}
@@ -328,11 +330,12 @@
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=y&outputType=JSON", function(response2){
 			if(response2.ctatt.route > 0){
 				for(var i = 0; i< response2.ctatt.route[0].train.length; i++){
+				var time2 = response1.ctatt.route[i].train[i].arrT;
 				yellowline.push({
 					run: response2.ctatt.route[0].train[i].rn,
 					nextStopId: response2.ctatt.route[0].train[i].nextStaId,
 					nextStopName: response2.ctatt.route[0].train[i].nextStaNm,
-					arrivalTime: response2.ctatt.route[0].train[i].arrT,
+					arrivalTime: time2,
 					lat: response2.ctatt.route[0].train[i].lat,
 					long: response2.ctatt.route[0].train[i].lon,
 					heading: response2.ctatt.route[0].train[i].heading,
@@ -344,7 +347,7 @@
 				var longitude = parseFloat(yellowline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<h4>Yellow Line: ' + yellowline[i].run + '</h4><p>Next Stop: ' + yellowline[i].nextStopName + '</p><p>Estimated Arrival Time ' + yellowline[i].arrivalTime + '</p><p>Destination: ' + yellowline[i].routeEnd + '</p>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + yellowline[i].run + '"<h4> Yellow Line: ' + yellowline[i].run + '</h4><p>Next Stop: ' + yellowline[i].nextStopName + '</p><p>Estimated Arrival Time ' + yellowline[i].arrivalTime + '</p><p>Destination: ' + yellowline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
 				yellArr.push(point);
 				}
 			}
@@ -352,12 +355,13 @@
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=red&outputType=JSON", function(response3){
 			if(response3.ctatt.route[0].train.length > 0){
+				var time3 = response3.ctatt.route[i].train[i].arrT;
 				for(var i = 0; i< response3.ctatt.route[0].train.length; i++){
 				redline.push({
 					run: response3.ctatt.route[0].train[i].rn,
 					nextStopId: response3.ctatt.route[0].train[i].nextStaId,
 					nextStopName: response3.ctatt.route[0].train[i].nextStaNm,
-					arrivalTime: response3.ctatt.route[0].train[i].arrT,
+					arrivalTime: time3,
 					lat: response3.ctatt.route[0].train[i].lat,
 					long: response3.ctatt.route[0].train[i].lon,
 					heading: response3.ctatt.route[0].train[i].heading,
@@ -369,7 +373,7 @@
 				var longitude = parseFloat(redline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<h4>Red Line: ' + redline[i].run + '</h4><p>Next Stop: ' + redline[i].nextStopName + '</p><p>Estimated Arrival Time ' + redline[i].arrivalTime + '</p><p>Destination: ' + redline[i].routeEnd + '</p>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + redline[i].run + '"<h4>Red Line: ' + redline[i].run + '</h4><p>Next Stop: ' + redline[i].nextStopName + '</p><p>Estimated Arrival Time ' + redline[i].arrivalTime + '</p><p>Destination: ' + redline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
 				redArr.push(point);
 				}
 			}
@@ -377,12 +381,13 @@
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=brn&outputType=JSON", function(response4){
 			if(response4.ctatt.route[0].train.length > 0){
+				var time4 = response4.ctatt.route[i].train[i].arrT;
 				for(var i = 0; i< response4.ctatt.route[0].train.length; i++){
 				brownline.push({
 					run: response4.ctatt.route[0].train[i].rn,
 					nextStopId: response4.ctatt.route[0].train[i].nextStaId,
 					nextStopName: response4.ctatt.route[0].train[i].nextStaNm,
-					arrivalTime: response4.ctatt.route[0].train[i].arrT,
+					arrivalTime: time4,
 					lat: response4.ctatt.route[0].train[i].lat,
 					long: response4.ctatt.route[0].train[i].lon,
 					heading: response4.ctatt.route[0].train[i].heading,
@@ -394,7 +399,7 @@
 				var longitude = parseFloat(brownline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<h4>Brown Line: ' + brownline[i].run + '</h4><p>Next Stop: ' + brownline[i].nextStopName + '</p><p>Estimated Arrival Time ' + brownline[i].arrivalTime + '</p><p>Destination: ' + brownline[i].routeEnd + '</p>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + brownline[i].run + '"<h4> Brown Line: ' + brownline[i].run + '</h4><p>Next Stop: ' + brownline[i].nextStopName + '</p><p>Estimated Arrival Time ' + brownline[i].arrivalTime + '</p><p>Destination: ' + brownline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
 				brownArr.push(point);
 				} 
 			}
@@ -403,11 +408,12 @@
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=blue&outputType=JSON", function(response5){
 			if(response5.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response5.ctatt.route[0].train.length; i++){
+				var time5 = response5.ctatt.route[i].train[i].arrT;
 				blueline.push({
 					run: response5.ctatt.route[0].train[i].rn,
 					nextStopId: response5.ctatt.route[0].train[i].nextStaId,
 					nextStopName: response5.ctatt.route[0].train[i].nextStaNm,
-					arrivalTime: response5.ctatt.route[0].train[i].arrT,
+					arrivalTime: time5,
 					lat: response5.ctatt.route[0].train[i].lat,
 					long: response5.ctatt.route[0].train[i].lon,
 					heading: response5.ctatt.route[0].train[i].heading,
@@ -419,7 +425,7 @@
 				var longitude = parseFloat(blueline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<h4>Blue Line: ' + blueline[i].run + '</h4><p>Next Stop: ' + blueline[i].nextStopName + '</p><p>Estimated Arrival Time ' + blueline[i].arrivalTime + '</p><p>Destination: ' + blueline[i].routeEnd + '</p>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + blueline[i].run + '"<h4>Blue Line: ' + blueline[i].run + '</h4><p>Next Stop: ' + blueline[i].nextStopName + '</p><p>Estimated Arrival Time ' + blueline[i].arrivalTime + '</p><p>Destination: ' + blueline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
 				blueArr.push(point);
 				}
 			}
@@ -428,11 +434,12 @@
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=g&outputType=JSON", function(response6){
 			if(response6.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response6.ctatt.route[0].train.length; i++){
+				var time6 = response6.ctatt.route[i].train[i].arrT;
 				greenline.push({
 					run: response6.ctatt.route[0].train[i].rn,
 					nextStopId: response6.ctatt.route[0].train[i].nextStaId,
 					nextStopName: response6.ctatt.route[0].train[i].nextStaNm,
-					arrivalTime: response6.ctatt.route[0].train[i].arrT,
+					arrivalTime: time6,
 					lat: response6.ctatt.route[0].train[i].lat,
 					long: response6.ctatt.route[0].train[i].lon,
 					heading: response6.ctatt.route[0].train[i].heading,
@@ -444,7 +451,7 @@
 				var longitude = parseFloat(greenline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<h4>Green Line: ' + greenline[i].run + '</h4><p>Next Stop: ' + greenline[i].nextStopName + '</p><p>Estimated Arrival Time ' + greenline[i].arrivalTime + '</p><p>Destination: ' + greenline[i].routeEnd + '</p>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + greenline[i].run + '"<h4> Green Line: ' + greenline[i].run + '</h4><p>Next Stop: ' + greenline[i].nextStopName + '</p><p>Estimated Arrival Time ' + greenline[i].arrivalTime + '</p><p>Destination: ' + greenline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
 				greenArr.push(point);
 				} 
 			}
@@ -452,12 +459,13 @@
 		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=org&outputType=JSON", function (response7) {
 			if (response7.ctatt.route[0].train.length > 0) {
+				var time7 = response7.ctatt.route[i].train[i].arrT;
 				for (var i = 0; i < response7.ctatt.route[0].train.length; i++) {
 					orangeline.push({
 						run: response7.ctatt.route[0].train[i].rn,
 						nextStopId: response7.ctatt.route[0].train[i].nextStaId,
 						nextStopName: response7.ctatt.route[0].train[i].nextStaNm,
-						arrivalTime: response7.ctatt.route[0].train[i].arrT,
+						arrivalTime: time7,
 						lat: response7.ctatt.route[0].train[i].lat,
 						long: response7.ctatt.route[0].train[i].lon,
 						heading: response7.ctatt.route[0].train[i].heading,
@@ -469,7 +477,7 @@
 				var longitude = parseFloat(orangeline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<h4>Orange Line: ' + orangeline[i].run + '</h4><p>Next Stop: ' + orangeline[i].nextStopName + '</p><p>Estimated Arrival Time ' + orangeline[i].arrivalTime + '</p><p>Destination: ' + orangeline[i].routeEnd + '</p>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + orangeline[i].run + '"<h4> Orange Line: ' + orangeline[i].run + '</h4><p>Next Stop: ' + orangeline[i].nextStopName + '</p><p>Estimated Arrival Time ' + orangeline[i].arrivalTime + '</p><p>Destination: ' + orangeline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
 				orangeArr.push(point);
 				}  
 			}
@@ -478,12 +486,13 @@
 		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=pink&outputType=JSON", function(response8){
 			
 			if(response8.ctatt.route[0].train.length > 0){
+				var time8 = response8.ctatt.route[i].train[i].arrT;
 				for(var i = 0; i< response8.ctatt.route[0].train.length; i++){
 				pinkline.push({
 					run: response8.ctatt.route[0].train[i].rn,
 					nextStopId: response8.ctatt.route[0].train[i].nextStaId,
 					nextStopName: response8.ctatt.route[0].train[i].nextStaNm,
-					arrivalTime: response8.ctatt.route[0].train[i].arrT,
+					arrivalTime: time8,
 					lat: response8.ctatt.route[0].train[i].lat,
 					long: response8.ctatt.route[0].train[i].lon,
 					heading: response8.ctatt.route[0].train[i].heading,
@@ -495,7 +504,7 @@
 				var longitude = parseFloat(pinkline[i].long);
 				var point = {coords: { lat: latitude, lng: longitude },
                 			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<h4>Pink Line: ' + pinkline[i].run + '</h4><p>Next Stop: ' + pinkline[i].nextStopName + '</p><p>Estimated Arrival Time ' + pinkline[i].arrivalTime + '</p><p>Destination: ' + pinkline[i].routeEnd + '</p>' }
+                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + pinkline[i].run + '"<h4> Pink Line: ' + pinkline[i].run + '</h4><p>Next Stop: ' + pinkline[i].nextStopName + '</p><p>Estimated Arrival Time ' + pinkline[i].arrivalTime + '</p><p>Destination: ' + pinkline[i].routeEnd + '</p><button type="submit">Track This Train</button></form>' }
 				pinkArr.push(point);
 				}  
 			}	

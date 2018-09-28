@@ -1311,7 +1311,7 @@ select {
   @media (min-width: 992px) {
     .app__menu {
       display: block;
-      width: 300px;
+      width: 500px;
       flex-shrink: 0; } }
 
 .app__main {
