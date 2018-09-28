@@ -185,6 +185,13 @@
 				greenArr = [];
 				orangeArr = [];
 				pinkArr = [];
+				YlwMrk = [];
+				PrpMrk = [];
+				BrnMrk = [];
+				RedMrk = [];
+				OrgMrk = [];
+				PnkMrk = [];
+				GrnMrk = [];
 			}else if(this.value == 'Purple Line'){
 				getdata();
 				yellowline=[];
@@ -201,6 +208,13 @@
 				greenArr = [];
 				orangeArr = [];
 				pinkArr = [];
+				YlwMrk = [];
+				BrnMrk = [];
+				RedMrk = [];
+				OrgMrk = [];
+				PnkMrk = [];
+				BluMrk = [];
+				GrnMrk = [];
 			}else if(this.value == 'Brown Line'){
 				getdata();
 				purpleline=[];
@@ -217,6 +231,13 @@
 				greenArr = [];
 				orangeArr = [];
 				pinkArr = [];
+				YlwMrk = [];
+				PrpMrk = [];
+				RedMrk = [];
+				OrgMrk = [];
+				PnkMrk = [];
+				BluMrk = [];
+				GrnMrk = [];
 			}else if(this.value == 'Green Line'){
 				getdata();
 				purpleline=[];
@@ -233,6 +254,13 @@
 				blueArr= [];
 				orangeArr = [];
 				pinkArr = [];
+				YlwMrk = [];
+				PrpMrk = [];
+				BrnMrk = [];
+				RedMrk = [];
+				OrgMrk = [];
+				PnkMrk = [];
+				BluMrk = [];
 			}else if(this.value == 'Orange Line'){
 				getdata();
 				purpleline=[];
@@ -249,6 +277,13 @@
 				blueArr= [];
 				greenArr = [];
 				pinkArr = [];
+				YlwMrk = [];
+				PrpMrk = [];
+				BrnMrk = [];
+				RedMrk = [];
+				PnkMrk = [];
+				BluMrk = [];
+				GrnMrk = [];
 			}else if(this.value == 'Pink Line'){
 				getdata();
 				purpleline=[];
@@ -265,6 +300,13 @@
 				blueArr= [];
 				greenArr = [];
 				orangeArr = [];
+				YlwMrk = [];
+				PrpMrk = [];
+				BrnMrk = [];
+				RedMrk = [];
+				OrgMrk = [];
+				BluMrk = [];
+				GrnMrk = [];
 			}else if(this.value == 'Red Line'){
 				getdata();
 				purpleline=[];
@@ -281,6 +323,13 @@
 				greenArr = [];
 				orangeArr = [];
 				pinkArr = [];
+				YlwMrk = [];
+				PrpMrk = [];
+				BrnMrk = [];
+				OrgMrk = [];
+				PnkMrk = [];
+				BluMrk = [];
+				GrnMrk = [];
 			}else if(this.value == 'Yellow Line'){
 				getdata();
 				purpleline=[];
@@ -297,6 +346,13 @@
 				greenArr = [];
 				orangeArr = [];
 				pinkArr = [];
+				PrpMrk = [];
+				BrnMrk = [];
+				RedMrk = [];
+				OrgMrk = [];
+				PnkMrk = [];
+				BluMrk = [];
+				GrnMrk = [];
 			}
 			initMap();
         });
@@ -591,6 +647,25 @@
                     });
                 }
 			}
+			function addMarker2(props) {
+                var tmarker = new google.maps.Marker({
+                    position: props.coords,
+					map: map,
+					icon:{
+						url: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+						size: new google.maps.Size(40,40),
+						origin: new google.maps.Point(0, 0),
+						anchor: new google.maps.Point(15, 15),
+						scaledSize: new google.maps.Size(30, 30)
+					}
+				});
+				var infoWindow = new google.maps.InfoWindow({
+					content: props.content
+				});
+				tmarker.addListener('click', function(){
+					infoWindow.open(map, tmarker);
+				});
+			}
 
 		var YellowLineCoordinates = [
 			{ lat: 42.019068, lng: -87.672825, name: "Howard" },
@@ -880,7 +955,140 @@
 			strokeOpacity: 0.8,
 			strokeWeight: 3
 		})
-		 
+		
+		var YlwMrk = [];
+		var PrpMrk = [];
+		var BrnMrk = [];
+		var RedMrk = [];
+		var OrgMrk = [];
+		var PnkMrk = [];
+		var BluMrk = [];
+		var GrnMrk = [];
+
+
+
+		for(var i = 0; i < YellowLineCoordinates.length; i++){
+			if(YellowLineCoordinates[i].name){
+				var point = {coords: {lat: YellowLineCoordinates[i].lat, lng:YellowLineCoordinates[i].lng},
+							iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+							content: "<p>" + YellowLineCoordinates[i].name + "</p"
+			}
+
+			YlwMrk.push(point);
+			}
+			
+		}
+		for(var i = 0; i < YlwMrk.length; i++){
+			addMarker2(YlwMrk[i]);
+		}
+
+		for(var i = 0; i < PurpleLineCoordinates.length; i++){
+			if(PurpleLineCoordinates[i].name){
+				var point = {coords: {lat: PurpleLineCoordinates[i].lat, lng:PurpleLineCoordinates[i].lng},
+							iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+							content: "<p>" + PurpleLineCoordinates[i].name + "</p"
+			}
+
+			PrpMrk.push(point);
+			}
+			
+		}
+		for(var i = 0; i < PrpMrk.length; i++){
+			addMarker2(PrpMrk[i]);
+		}
+
+		for(var i = 0; i < BrownLineCoordinates.length; i++){
+			if(BrownLineCoordinates[i].name){
+				var point = {coords: {lat: BrownLineCoordinates[i].lat, lng:BrownLineCoordinates[i].lng},
+							iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+							content: "<p>" + BrownLineCoordinates[i].name + "</p"
+			}
+
+			BrnMrk.push(point);
+			}
+			
+		}
+		for(var i = 0; i < BrnMrk.length; i++){
+			addMarker2(BrnMrk[i]);
+		}
+
+			for(var i = 0; i < RedLineCoordinates.length; i++){
+			if(RedLineCoordinates[i].name){
+				var point = {coords: {lat: RedLineCoordinates[i].lat, lng:RedLineCoordinates[i].lng},
+							iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+							content: "<p>" + RedLineCoordinates[i].name + "</p"
+			}
+
+			RedMrk.push(point);
+			}
+			
+		}
+		for(var i = 0; i < RedMrk.length; i++){
+			addMarker2(RedMrk[i]);
+		}
+
+		for(var i = 0; i < OrangeLineCoordinates.length; i++){
+			if(OrangeLineCoordinates[i].name){
+				var point = {coords: {lat: OrangeLineCoordinates[i].lat, lng:OrangeLineCoordinates[i].lng},
+							iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+							content: "<p>" + OrangeLineCoordinates[i].name + "</p"
+			}
+
+			OrgMrk.push(point);
+			}
+			
+		}
+		for(var i = 0; i < OrgMrk.length; i++){
+			addMarker2(OrgMrk[i]);
+		}
+
+		for(var i = 0; i < PinkLineCoordinates.length; i++){
+			if(PinkLineCoordinates[i].name){
+				var point = {coords: {lat: PinkLineCoordinates[i].lat, lng:PinkLineCoordinates[i].lng},
+							iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+							content: "<p>" + PinkLineCoordinates[i].name + "</p"
+			}
+
+			PnkMrk.push(point);
+			}
+			
+		}
+		for(var i = 0; i < PnkMrk.length; i++){
+			addMarker2(PnkMrk[i]);
+		}
+
+		for(var i = 0; i < BlueLineCoordinates.length; i++){
+			if(BlueLineCoordinates[i].name){
+				var point = {coords: {lat: BlueLineCoordinates[i].lat, lng:BlueLineCoordinates[i].lng},
+							iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+							content: "<p>" + BlueLineCoordinates[i].name + "</p"
+			}
+
+			BluMrk.push(point);
+			}
+			
+		}
+		for(var i = 0; i < BluMrk.length; i++){
+			addMarker2(BluMrk[i]);
+		}
+
+		for(var i = 0; i < GreenLineCoordinates.length; i++){
+			if(GreenLineCoordinates[i].name){
+				var point = {coords: {lat: GreenLineCoordinates[i].lat, lng:GreenLineCoordinates[i].lng},
+							iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+							content: "<p>" + GreenLineCoordinates[i].name + "</p"
+			}
+
+			GrnMrk.push(point);
+			}
+			
+		}
+		for(var i = 0; i < GrnMrk.length; i++){
+			addMarker2(GrnMrk[i]);
+		}
+		
+		
+
 		YellowLine.setMap(map);
 		PurpleLine.setMap(map);
 		BrownLine.setMap(map);
