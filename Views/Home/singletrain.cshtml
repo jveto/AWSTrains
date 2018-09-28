@@ -28,27 +28,22 @@
 					<div class="vMenu vMenuTop">
 						<p class="etched-text">Display: <span style="color: darkslategray;">{{ line }}</span></p>
 					</div>
-					<ul class="vMenu vMenuCustom">
-						<p class="etched-text" style="color: darkslategray;">Select an option:</p>
-						<li style="display: flex;">
-							<div>
-								
-							</div>
-						</li>
-					</ul>
+					
 					
 				</div>
-				<table class='table table-striped' style="background-color: white; padding: 20px; box-shadow: 1px 1px #ccc;">
-                        <h4 style="darkslategray">Route information for Train #@ViewBag.id</h4>
-                        <thead>
-                            <th style="width: 300px; text-align: left;">Station</th>
-                            <th style="width: 300px; text-align: left;">Arrival</th>
-                            <th style="width: 300px; text-align: left;">Destination</th>
-                        </thead>
-                        <tbody id="trains">
-                        
-                        </tbody>
-                    </table>
+                <h4 style="darkslategray">Route information for Train #@ViewBag.id</h4>
+				<table class='table table-striped'>
+                    <thead>
+                        <th style="text-align: left;">Station</th>
+                        <th style="text-align: left;">Arrival</th>
+                        <th style="text-align: left;">Destination</th>
+                    </thead>
+                    <tbody id="trains">
+                    
+                    </tbody>
+                </table><br>
+                <button id="atrain" class="trainbtn" style="width: 100px; margin-right: 10px;">Map Train</button>
+				<a href="/dashboard"><button type="submit" class="trainbtn" style="width: 100px;">Back</button></a>
 				<ul class="vMenu vMenuCustom">
 					<p class="etched-text" style="color: darkslategray;">Magnify:</p>
 					<li>
@@ -67,11 +62,15 @@
                     
                 
                 
-				<div id="map" style="width: 170%; min-height: 700px;"></div>
+				<div id="map" style="width: 100%; min-height: 650px;"></div>
 
 <script>
     var singletrain = [];
+    var markArr = [];
 	$(document).ready(function(){
+        $("#atrain").click(function(){
+			initMap();
+		});
 		$.get("http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?key=d37555ccc09141848543ab21e287b560&runnumber=@ViewBag.id&outputType=JSON", function(response){
             if(response != null){
                 for(var i = 0; i<response.ctatt.eta.length; i++){
@@ -92,8 +91,64 @@
                 }
 			}  	
 		});
+        
     });
-</script>
+    function initMap() {
+	
+		var codingDojo = { lat: 41.897184, lng: -87.635235 }
+		var map = new google.maps.Map(
+			document.getElementById('map'), { zoom: 12, center: codingDojo }
+			);
+		// var marker = new google.maps.Marker({ position: codingDojo, map: map });
+		google.maps.event.addListener(map, 'click', function (event) {
+                    // Add marker
+                    //addMarker({ coords: event.latLng });
+                });
+		
+		
+			 
+			   
+			 
+		//Adding map markers from line arr data
+		if(markArr.length > 0){	       
+			for (var i = 0; i < markArr.length; i++) {
+                addMarker(markArr[i]);
+            }
+		}
+		
 
+		
+
+
+        function addMarker(props) {
+            var tmarker = new google.maps.Marker({
+                position: props.coords,
+                map: map,
+            });
+
+		
+
+            //   // Check for customicon
+            if (props.iconImage) {
+                
+                tmarker.setIcon(props.iconImage);
+            }
+
+            //   // Check content
+            if (props.content) {
+                var infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                });
+
+                tmarker.addListener('click', function () {
+                    infoWindow.open(map, tmarker);
+                });
+            }
+        }
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmMtYz3uY9Di4Fhyj18uWAg3EWE5e5W3s">
+
+</script>
 
 
