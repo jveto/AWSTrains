@@ -652,15 +652,16 @@
                     position: props.coords,
 					map: map,
 					icon:{
-						url: 'http://kstyles.altervista.org/publish/publish/web/images/4dot.png',
+						url: 'https://cdn3.iconfinder.com/data/icons/map/500/communication-256.png',
 						size: new google.maps.Size(40,40),
 						origin: new google.maps.Point(0, 0),
-						anchor: new google.maps.Point(15, 15),
-						scaledSize: new google.maps.Size(30, 30)
+						anchor: new google.maps.Point(6, 15),
+						scaledSize: new google.maps.Size(15, 15),
 					}
 				});
 				var infoWindow = new google.maps.InfoWindow({
-					content: props.content
+					content: props.content,
+					pixelOffset : new google.maps.Size(-12, 3)
 				});
 				tmarker.addListener('click', function(){
 					infoWindow.open(map, tmarker);
