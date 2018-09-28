@@ -132,6 +132,15 @@ namespace TrainTracker.Controllers
             
             return View("dashboard");
         }
+
+        // [HttpGet("test")]
+        // public IActionResult Test(){
+        //     string URL = "https://data.cityofchicago.org/resource/8mj8-j3c4.json";
+        //     string urlParameters;
+        //     HttpClient client = new HttpClient();
+        //     client.BaseAddress = new Uri(URL);
+        //     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        // }
     }
 }
 
