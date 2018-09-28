@@ -109,3 +109,28 @@ table th{
     width: 200px;
     padding: 20px;
 }
+
+.text-container {
+    width: 100%;
+}
+
+.arrival {
+    padding: 1px 1%;
+    margin-top: 3%;
+}
+
+.arrival h2 {
+    font-size: 2.5em;
+    margin-top: 0;
+    opacity: 1;
+}
+
+.arrival span {
+    float: right;
+    margin-right: 10%;
+}
+
+.arrival p {
+    opacity: 1;
+    color: darkgray;
+}
