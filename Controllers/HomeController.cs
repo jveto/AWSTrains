@@ -27,8 +27,8 @@ namespace TrainTracker.Controllers
             return View();
         }
 
-        [HttpGet ("Dashboard")]
-        public IActionResult Dashboard () {
+        [HttpGet ("dashboard")]
+        public IActionResult dashboard () {
             return View ();
         }
 
