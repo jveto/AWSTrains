@@ -140,8 +140,6 @@
 	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="~/lib/animejs/anime.min.js"></script>
-
 <script>
 	var purpleline=[];
 	var yellowline=[];
@@ -356,32 +354,42 @@
 			initMap();
         });
 	function getdata(){
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON", function(response1){			
-			if(response1.ctatt.route[0].train.length > 0){
-				for(var i = 0; i< response1.ctatt.route[0].train.length; i++){
-				purpleline.push({
-					run: response1.ctatt.route[0].train[i].rn,
-					nextStopId: response1.ctatt.route[0].train[i].nextStaId,
-					nextStopName: response1.ctatt.route[0].train[i].nextStaNm,
-					arrivalTime: response1.ctatt.route[0].train[i].arrT,
-					lat: response1.ctatt.route[0].train[i].lat,
-					long: response1.ctatt.route[0].train[i].lon,
-					heading: response1.ctatt.route[0].train[i].heading,
-					routeEnd: response1.ctatt.route[0].train[i].destNm
-					});
-				}
-			
-			for(var i = 0; i<purpleline.length; i++){
-				var latitude = parseFloat(purpleline[i].lat);
-				var longitude = parseFloat(purpleline[i].long);
-				var point = {coords: { lat: latitude, lng: longitude },
-                			 iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
-                			 content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + purpleline[i].run + '"<h4> Pink Line: ' + purpleline[i].run + '</h4><p>Next Stop: ' + purpleline[i].nextStopName + '</p><p>Estimated Arrival Time ' + purpleline[i].arrivalTime + '</p><p>Destination: ' + purpleline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
-				purpArr.push(point);
-				}
-			}
-		});
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=y&outputType=JSON", function(response2){
+        var proxy = 'https://cors-anywhere.herokuapp.com/';
+		$.ajax({
+            url: proxy + "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=p&outputType=JSON",
+            type: 'GET',
+            success: function(result) {
+                console.log(result);		
+                if(result.ctatt.route[0].train.length > 0){
+                    for(var i = 0; i< result.ctatt.route[0].train.length; i++){
+                    purpleline.push({
+                        run: result.ctatt.route[0].train[i].rn,
+                        nextStopId: result.ctatt.route[0].train[i].nextStaId,
+                        nextStopName: result.ctatt.route[0].train[i].nextStaNm,
+                        arrivalTime: result.ctatt.route[0].train[i].arrT,
+                        lat: result.ctatt.route[0].train[i].lat,
+                        long: result.ctatt.route[0].train[i].lon,
+                        heading: result.ctatt.route[0].train[i].heading,
+                        routeEnd: result.ctatt.route[0].train[i].destNm
+                        });
+                    }
+                }
+                for(var i = 0; i< purpleline.length; i++){
+                    var latitude = parseFloat(purpleline[i].lat);
+                    var longitude = parseFloat(purpleline[i].long);
+                    var point = {coords: { lat: latitude, lng: longitude },
+                                iconImage: 'http://kstyles.altervista.org/publish/publish/web/images/2train.png',
+                                content: '<form action="singletrain" method="POST"><input type="hidden" name="id" value="' + purpleline[i].run + '"<h4> Pink Line: ' + purpleline[i].run + '</h4><p>Next Stop: ' + purpleline[i].nextStopName + '</p><p>Estimated Arrival Time ' + purpleline[i].arrivalTime + '</p><p>Destination: ' + purpleline[i].routeEnd + '</p><button type="submit" class="trainbtn">Track This Train</button></form>' }
+                    purpArr.push(point);
+                }
+            },
+            error: function(error) {
+                console.log(error);
+                console.log("THERE WAS AN ERROR GETTING PURLPLE LINE DATA");
+            }
+        });
+		$.get(proxy + "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=y&outputType=JSON").done(function(response2){
+            console.log(response2);
 			if(response2.ctatt.route > 0){
 				for(var i = 0; i< response2.ctatt.route[0].train.length; i++){
 				yellowline.push({
@@ -406,7 +414,7 @@
 			}
 
 		});
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=red&outputType=JSON", function(response3){
+		$.get(proxy + "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=red&outputType=JSON", function(response3){
 			if(response3.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response3.ctatt.route[0].train.length; i++){
 				redline.push({
@@ -431,7 +439,7 @@
 			}
 
 		});
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=brn&outputType=JSON", function(response4){
+		$.get(proxy + "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=brn&outputType=JSON", function(response4){
 			if(response4.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response4.ctatt.route[0].train.length; i++){
 				brownline.push({
@@ -456,7 +464,7 @@
 			}
 
 		});
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=blue&outputType=JSON", function(response5){
+		$.get(proxy + "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=blue&outputType=JSON", function(response5){
 			if(response5.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response5.ctatt.route[0].train.length; i++){
 				blueline.push({
@@ -481,7 +489,7 @@
 			}
 
 		});
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=g&outputType=JSON", function(response6){
+		$.get(proxy + "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=g&outputType=JSON", function(response6){
 			if(response6.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response6.ctatt.route[0].train.length; i++){
 				greenline.push({
@@ -506,7 +514,7 @@
 			}
 
 		});
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=org&outputType=JSON", function (response7) {
+		$.get(proxy + "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=org&outputType=JSON", function (response7) {
 			if (response7.ctatt.route[0].train.length > 0) {
 				for (var i = 0; i < response7.ctatt.route[0].train.length; i++) {
 					orangeline.push({
@@ -531,7 +539,7 @@
 			}
 
 		});
-		$.get("http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=pink&outputType=JSON", function(response8){
+		$.get(proxy + "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx?key=d37555ccc09141848543ab21e287b560&rt=pink&outputType=JSON", function(response8){
 			
 			if(response8.ctatt.route[0].train.length > 0){
 				for(var i = 0; i< response8.ctatt.route[0].train.length; i++){
